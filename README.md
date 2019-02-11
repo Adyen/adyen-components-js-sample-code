@@ -2,6 +2,8 @@
 
 > ⚠️ **This repository is for demo purposes only**
 
+![Adyen Checkout Components Sample Code](screenshot.png)
+
 ## Requirements
 
 To run this project, **create** a `.env` file on your project's root folder following the example on `.env.default`.
@@ -15,7 +17,7 @@ These variables can be found in Adyen Customer Area. For more information, visit
 Run from the root of the project:
 
 ```
-$ cd checkout-components-sample-code
+$ cd adyen-components-js-sample-code
 $ ./server/php/start.sh
 ```
 
