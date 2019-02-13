@@ -203,3 +203,7 @@ pre {
     flex-direction: column;
     align-items: center;
 }
+
+#wechatpay-container {
+    min-width: 500px;
+}

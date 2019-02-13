@@ -8,7 +8,7 @@ const paymentMethodsConfig = {
     }
 };
 
-const paymentsConfig = {
+const paymentsDefaultConfig = {
     shopperReference: 'Checkout Components sample code test',
     reference: 'Checkout Components sample code test',
     countryCode: 'NL',
@@ -53,7 +53,8 @@ const getPaymentMethods = () =>
         .catch(console.error);
 
 // Posts a new payment into the local server
-const makePayment = paymentMethod => {
+const makePayment = (paymentMethod, config = {}) => {
+    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
     const paymentRequest = { ...paymentsConfig, paymentMethod };
 
     return httpPost('payments', paymentRequest)
