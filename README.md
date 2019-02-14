@@ -8,6 +8,11 @@
 
 To run this project, **create** a `.env` file on your project's root folder following the example on `.env.default`.
 
+```
+MERCHANT_ACCOUNT=MyMerchantAccount
+CHECKOUT_APIKEY=MY_CHECKOUT_API_KEY
+```
+
 These variables can be found in Adyen Customer Area. For more information, visit our [Getting Started guide](https://docs.adyen.com/developers/get-started-with-adyen/create-a-test-account).
 
 ## Installation
