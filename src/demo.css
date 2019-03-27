@@ -34,27 +34,55 @@ h1 {
     line-height: 38px;
 }
 
-h2 {
-    font-size: 1.4em;
-    margin-top: 0;
-}
-
-.sidebar h2 {
-    padding: 16px;
+.sidebar .header {
+    height: 60px;
+    padding: 16px 24px;
     margin: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     line-height: 1;
 }
 
-h3 {
-    background: #183057;
-    font-size: 1em;
-    margin: 0;
-    padding: 15px 24px;
+.sidebar h2 {
+    display: inline-block;
+    font-size: 1.25em;
+    margin: 5px 0 0;
 }
 
-button {
+.sidebar .copy-sample-code {
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    font-size: 0.65em;
+    margin-top: -3px;
+    text-transform: uppercase;
+    padding: 8px 0;
+    transition: 0.5s all;
+    width: 60px;
+}
+
+.sidebar .copy-sample-code:hover {
+    background: #183057;
+}
+
+.sidebar .copy-sample-code.copy-sample-code--active {
+    border-color: #00a3ff;
+    background: #00a3ff;
+    transition: none;
+}
+
+.sidebar .copy-sample-code.copy-sample-code--active:before {
+    content: 'Copied!';
+}
+
+.sidebar .copy-sample-code:before {
+    content: 'Copy';
+}
+
+.pay-button {
     background: #001b2b;
     border: 0;
     border-radius: 3px;
@@ -70,13 +98,24 @@ button {
     width: 300px;
 }
 
-ul.payment_methods__list {
-    list-style: none;
-    margin: 0;
-    padding: 14px 0 14px 14px;
+.pay-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.15;
 }
 
-li.payment_methods__list__element {
+.payment_methods__list {
+    list-style: none;
+    margin: 0;
+    padding: 14px 0 14px;
+}
+
+@media (min-width: 780px) {
+    .payment_methods__list {
+        padding-left: 14px;
+    }
+}
+
+.payment_methods__list__element {
     margin: 14px 0;
 }
 
@@ -91,12 +130,19 @@ a:link:hover {
 }
 
 .container {
-    margin: auto;
+    margin: 0 15px;
     max-width: 960px;
     height: 100vh;
 }
 
+@media (min-width: 780px) {
+    .container {
+        margin: auto;
+    }
+}
+
 .container--full-width {
+    margin: 0;
     max-width: 100vw;
 }
 
@@ -109,12 +155,13 @@ a:link:hover {
 .main {
     display: block;
     overflow-y: auto;
-    padding: 18px 60px 48px;
+    padding: 18px 15px 48px;
     position: relative;
 }
 
 @media (min-width: 780px) {
     .main {
+        padding: 18px 60px;
         width: 60%;
     }
 }
@@ -136,59 +183,41 @@ a:link:hover {
     background: #f3f6f9;
     border-left: 7px solid #00a3ff;
     margin: 28px 0 0;
-    padding: 7px 21px;
+    padding: 7px 14px;
+}
+
+@media (min-width: 780px) {
+    .info {
+        padding: 7px 21px;
+    }
 }
 
 pre {
-    margin: 12px;
+    font-size: 0.95em;
+    margin: 24px;
     overflow: auto;
-    padding: 12px;
     position: relative;
 }
 
-.source-code {
-    border-radius: 3px;
-    transition: box-shadow 0.3s ease-out;
-}
-
-.source-code--copied {
-    box-shadow: inset 0 0 0 2px #0abf53;
-    transition: none;
-}
-
-.source-code code:before {
-    background: #0abf53;
-    border-radius: 3px;
-    content: 'Copied!';
-    font: 12px 'Fakt', sans-serif, Helvetica, Arial;
-    padding: 6px 12px 3px 12px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: opacity 0.3s ease-out;
-    opacity: 0;
-}
-
-.source-code--copied code:before {
-    opacity: 1;
-    transition: none;
-}
-
+.request-container .request-code,
 .response-container .response-code {
     opacity: 0;
     transition: opacity 0.2s ease-out;
 }
 
+.request-container--visible .request-code,
 .response-container--visible .response-code {
     opacity: 1;
 }
 
+.request-container p,
 .response-container p {
-    padding: 16px 32px;
-    font-size: 90%;
+    padding: 16px 24px;
+    font-size: 0.9em;
     opacity: 0.7;
 }
 
+.request-container--visible p,
 .response-container--visible p {
     display: none;
 }
@@ -196,7 +225,7 @@ pre {
 .payment-method {
     border-radius: 3px;
     display: block;
-    margin: 0 auto;
+    margin: 0 -15px;
     padding: 3em;
     background: #f7f8f9;
     display: flex;
@@ -204,6 +233,13 @@ pre {
     align-items: center;
 }
 
+@media (min-width: 780px) {
+    .payment-method {
+        margin: 0 auto;
+    }
+}
+
+#bancontact-container,
 #wechatpay-container {
-    min-width: 500px;
+    min-width: 80%;
 }

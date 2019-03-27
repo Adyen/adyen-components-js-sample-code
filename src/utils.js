@@ -1,6 +1,6 @@
 const paymentMethodsConfig = {
-    shopperReference: `Checkout Components sample code test`,
-    reference: `Checkout Components sample code test`,
+    shopperReference: 'Checkout Components sample code test',
+    reference: 'Checkout Components sample code test',
     countryCode: 'NL',
     amount: {
         value: 1000,
@@ -57,6 +57,8 @@ const makePayment = (paymentMethod, config = {}) => {
     const paymentsConfig = { ...paymentsDefaultConfig, ...config };
     const paymentRequest = { ...paymentsConfig, paymentMethod };
 
+    updateRequestContainer(paymentRequest);
+
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
@@ -70,7 +72,7 @@ const makePayment = (paymentMethod, config = {}) => {
 
 // Fetches an originKey from the local server
 const getOriginKey = () =>
-    httpPost('originKeys', paymentMethodsConfig)
+    httpPost('originKeys')
         .then(response => {
             if (response.error || !response.originKeys) throw 'No originKey available';
 

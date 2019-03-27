@@ -23,7 +23,7 @@ const sepa = checkout
     })
     .mount('#sepa-container');
 
-// Submit Payment
+// 3. Submit Payment
 const payButton = document.querySelector('button');
 payButton.addEventListener('click', e => {
     if (!sepa.isValid()) {

@@ -18,7 +18,7 @@ getPaymentMethods().then(response => {
         })
         .mount('#ideal-container');
 
-    // Submit Payment
+    // 3. Submit Payment
     const payButton = document.querySelector('button');
     payButton.addEventListener('click', e => {
         if (!ideal.isValid()) {

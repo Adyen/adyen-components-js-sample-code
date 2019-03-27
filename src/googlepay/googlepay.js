@@ -7,7 +7,7 @@ const googlepay = checkout
         environment: 'TEST',
         configuration: {
             gatewayMerchantId: 'TestMerchantCheckout', // name of your Adyen Merchant account
-            merchantName: 'Adyen Test' // Name to be displayed
+            merchantName: 'Adyen Test' // Name to be shown
             // merchantIdentifier: '' // Required in Production environment. Google's merchantId: https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment#obtain-your-merchantID
         },
         // Events

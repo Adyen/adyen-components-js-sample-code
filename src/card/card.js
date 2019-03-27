@@ -2,8 +2,7 @@
 getOriginKey().then(originKey => {
     // 1. Create an instance of AdyenCheckout
     const checkout = new AdyenCheckout({
-        originKey: originKey, // Mandatory. originKey from Costumer Area
-        loadingContext: 'https://checkoutshopper-test.adyen.com/checkoutshopper/'
+        originKey: originKey // Mandatory. originKey from Costumer Area
     });
 
     // 2. Create and mount the Component
@@ -34,6 +33,7 @@ getOriginKey().then(originKey => {
         })
         .mount('#card-container');
 
+    // 3. Submit Payment
     const payButton = document.querySelector('.pay-button');
     payButton.addEventListener('click', e => {
         if (!card.isValid()) {

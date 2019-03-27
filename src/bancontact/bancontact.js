@@ -5,31 +5,31 @@ getOriginKey().then(originKey => {
         originKey: originKey // Mandatory. originKey from Costumer Area
     });
 
-    const wechatPaymentData = {
-        type: 'wechatpayQR'
+    const bancontactPaymentData = {
+        type: 'bcmc_mobile_QR'
     };
 
     // Override our default demo config for this payment method
     const paymentsApiConfiguration = {
-        countryCode: 'CN',
+        countryCode: 'BE',
         amount: {
             value: 1000,
-            currency: 'CNY'
+            currency: 'EUR'
         }
     };
 
-    /** Call the /payments endpoint to retrieve the necessary data to start the Wechat Pay component
+    /** Call the /payments endpoint to retrieve the necessary data to start the Bancontact component
      *  We need the following parts of the response
      *  - qrCodeData (redirect.data.qrCodeData): The data the QR Code will contain
      *  - paymentData Necessary to communicate with Adyen to check the current payment status
      */
-    makePayment(wechatPaymentData, paymentsApiConfiguration).then(response => {
+    makePayment(bancontactPaymentData, paymentsApiConfiguration).then(response => {
         if (response.resultCode === 'PresentToShopper') {
             // 2. Create and mount the Component
-            const wechatpay = checkout
-                .create('wechatpay', {
+            const bancontact = checkout
+                .create('bcmc_mobile', {
                     paymentData: response.paymentData,
-                    amount: { currency: 'CNY', value: 1000 }, // amount to be shown next to the qrcode
+                    amount: { currency: 'EUR', value: 1000 }, // amount to be shown next to the qrcode
                     qrCodeData: response.redirect.data.qrCodeData,
 
                     // Events
@@ -40,7 +40,7 @@ getOriginKey().then(originKey => {
                         console.log(error);
                     }
                 })
-                .mount('#wechatpay-container');
+                .mount('#bancontact-container');
         }
     });
 });
