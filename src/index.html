@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-beta.adyen.com/checkoutshopper/sdk/2.3.0/adyen.css">
     <link rel="stylesheet" href="./demo.css">
 </head>
 <body>
@@ -18,7 +17,11 @@
             They render as input fields that collect required shopper details, and provide the values you need to make a payment.
         </p>
 
+
         <ul class="payment_methods__list">
+            <li class="payment_methods__list__element">
+                <a href="./dropin">Drop-in</a>
+            </li>
             <li class="payment_methods__list__element">
                 <a href="./bancontact">Bancontact Mobile Component</a>
             </li>
@@ -41,12 +44,11 @@
 
         <div class="info">
             <p>
-                For more information, please refer to the <a href="https://docs.adyen.com/developers/checkout/api-integration#collectdetailswithcomponentscomponents" target="_blank">Checkout Components documentation</a>.
+                For more information, please refer to the <a href="https://docs.adyen.com/checkout/components-web/" target="_blank">Checkout Components documentation</a>.
             </p>
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/2.3.0/adyen.js"></script>
     <script src="demo.js"></script>
 </body>
 </html>

@@ -2,19 +2,19 @@
 getOriginKey().then(originKey => {
     // 1. Create an instance of AdyenCheckout providing an originKey
     const checkout = new AdyenCheckout({
+        environment: 'test',
         originKey: originKey // Mandatory. originKey from Costumer Area
     });
 
-    const wechatPaymentData = {
-        type: 'wechatpayQR'
-    };
-
     // Override our default demo config for this payment method
-    const paymentsApiConfiguration = {
+    const wechatData = {
         countryCode: 'CN',
         amount: {
             value: 1000,
             currency: 'CNY'
+        },
+        paymentMethod: {
+            type: 'wechatpayQR'
         }
     };
 
@@ -23,14 +23,14 @@ getOriginKey().then(originKey => {
      *  - qrCodeData (redirect.data.qrCodeData): The data the QR Code will contain
      *  - paymentData Necessary to communicate with Adyen to check the current payment status
      */
-    makePayment(wechatPaymentData, paymentsApiConfiguration).then(response => {
+    makePayment(wechatData).then(response => {
         if (response.resultCode === 'PresentToShopper') {
             // 2. Create and mount the Component
             const wechatpay = checkout
                 .create('wechatpay', {
-                    paymentData: response.paymentData,
+                    paymentData: response.action.paymentData,
                     amount: { currency: 'CNY', value: 1000 }, // amount to be shown next to the qrcode
-                    qrCodeData: response.redirect.data.qrCodeData,
+                    qrCodeData: response.action.qrCodeData,
 
                     // Events
                     onComplete: result => {

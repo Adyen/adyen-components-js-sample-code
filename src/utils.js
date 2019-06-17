@@ -55,7 +55,7 @@ const getPaymentMethods = () =>
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
     const paymentsConfig = { ...paymentsDefaultConfig, ...config };
-    const paymentRequest = { ...paymentsConfig, paymentMethod };
+    const paymentRequest = { ...paymentsConfig, ...paymentMethod };
 
     updateRequestContainer(paymentRequest);
 

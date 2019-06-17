@@ -1,6 +1,12 @@
 // 1. Create an instance of AdyenCheckout
 const checkout = new AdyenCheckout({
-    // locale: 'es_ES'
+    environment: 'test',
+    onChange: (state, component) => {
+        // state.data;
+        // state.isValid;
+
+        updateStateContainer(state); // Demo purposes only
+    }
 });
 
 // 2. Create and mount the Component
@@ -11,14 +17,6 @@ const sepa = checkout
             // Optional. Overwriting the default placeholders
             // ownerName: '',
             // ibanNumber: ''
-        },
-
-        // Events
-        onChange: (state, component) => {
-            // state.data;
-            // state.isValid;
-
-            updateStateContainer(state); // Demo purposes only
         }
     })
     .mount('#sepa-container');
@@ -26,10 +24,10 @@ const sepa = checkout
 // 3. Submit Payment
 const payButton = document.querySelector('button');
 payButton.addEventListener('click', e => {
-    if (!sepa.isValid()) {
+    if (!sepa.isValid) {
         sepa.showValidation(); // Show validation on all non-valid fields
         return false;
     }
 
-    makePayment(sepa.paymentData);
+    makePayment(sepa.data);
 });

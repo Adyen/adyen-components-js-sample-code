@@ -4,7 +4,7 @@ const checkout = new AdyenCheckout();
 // 2. Create and mount the Component
 const googlepay = checkout
     .create('paywithgoogle', {
-        environment: 'TEST',
+        environment: 'TEST', // Google Pay environment
         configuration: {
             gatewayMerchantId: 'TestMerchantCheckout', // name of your Adyen Merchant account
             merchantName: 'Adyen Test' // Name to be shown

@@ -5,11 +5,11 @@
 }
 
 *::selection {
-    background: #00a3ff;
+    background: #99c2ff;
 }
 
 *::-moz-selection {
-    background: #00a3ff;
+    background: #99c2ff;
 }
 
 html,
@@ -69,8 +69,8 @@ h1 {
 }
 
 .sidebar .copy-sample-code.copy-sample-code--active {
-    border-color: #00a3ff;
-    background: #00a3ff;
+    border-color: #06f;
+    background: #06f;
     transition: none;
 }
 
@@ -121,7 +121,7 @@ h1 {
 
 a:link,
 a:visited {
-    color: #00a3ff;
+    color: #06f;
     text-decoration: none;
 }
 
@@ -181,7 +181,7 @@ a:link:hover {
 
 .info {
     background: #f3f6f9;
-    border-left: 7px solid #00a3ff;
+    border-left: 7px solid #06f;
     margin: 28px 0 0;
     padding: 7px 14px;
 }
@@ -242,4 +242,12 @@ pre {
 #bancontact-container,
 #wechatpay-container {
     min-width: 80%;
+}
+
+#card-container {
+    width: 300px;
+}
+
+#dropin-container {
+    width: 80%;
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/2.3.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.css">
     <link rel="stylesheet" href="../demo.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
                     Check the Source Code to see the full implementation.
                 </p>
                 <p>
-                    For more information, please refer to the <a href="https://docs.adyen.com/developers/checkout/api-integration#collectdetailswithcomponentscomponents" target="_blank">Checkout Components documentation</a>.
+                    For more information, please refer to the <a href="https://docs.adyen.com/checkout/components-web/" target="_blank">Checkout Components documentation</a>.
                 </p>
             </div>
         </div>
@@ -39,16 +39,10 @@
                 <h2>Basic Implementation</h2>
                 <button class="copy-sample-code" aria-label="Copy sample code"></button>
             </div>
-            <pre class="source-code"><code>const checkout = new AdyenCheckout();
+            <pre class="source-code"><code>const checkout = new AdyenCheckout({ environment: 'test' });
 
 const ideal = checkout
-    .create('ideal', {
-        details: idealData.details,
-        onChange: (state, component) => {
-            // state.data;
-            // state.isValid;
-        }
-    })
+    .create('ideal')
     .mount('#ideal-container');</code></pre>
 
             <div class="header">
@@ -74,7 +68,7 @@ const ideal = checkout
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/2.3.0/adyen.js"></script>
+    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
     <script src="/ideal/ideal.js"></script>

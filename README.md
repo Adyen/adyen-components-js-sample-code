@@ -30,7 +30,7 @@ A PHP server will start on `http://localhost:3000`.
 
 ## Documentation
 
-For the complete integration guide, refer to the [Checkout Components documentation](https://docs.adyen.com/developers/checkout/api-integration#collectdetailswithcomponentscomponents).
+For the complete integration guide, refer to the [Checkout Components documentation](https://docs.adyen.com/checkout/components-web/).
 
 ## License
 
