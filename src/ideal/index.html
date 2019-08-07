@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.1.0/adyen.css">
     <link rel="stylesheet" href="../demo.css">
 </head>
 <body>
@@ -16,12 +16,9 @@
 
                 <h1>iDEAL Component</h1>
                 <div class="payment-method">
-
-                    <div id="ideal-container">
+                    <div id="ideal-container" class="payment-method__container">
                         <!-- iDEAL Component will be rendered here -->
                     </div>
-
-                    <button class="pay-button">Pay with iDEAL</button>
                 </div>
             </div>
             <div class="info">
@@ -39,7 +36,10 @@
                 <h2>Basic Implementation</h2>
                 <button class="copy-sample-code" aria-label="Copy sample code"></button>
             </div>
-            <pre class="source-code"><code>const checkout = new AdyenCheckout({ environment: 'test' });
+            <pre class="source-code"><code>const checkout = new AdyenCheckout({
+    environment: 'test',
+    paymentMethodsResponse: { ... }
+});
 
 const ideal = checkout
     .create('ideal')
@@ -68,7 +68,7 @@ const ideal = checkout
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js"></script>
+    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.1.0/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
     <script src="/ideal/ideal.js"></script>

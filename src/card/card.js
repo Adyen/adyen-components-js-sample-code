@@ -24,7 +24,16 @@ getOriginKey().then(originKey => {
                 // encryptedSecurityCode : '123'
             },
 
+            // Optionally show a Pay Button
+            showPayButton: true,
+
             // Events
+            onSubmit: (state, component) => {
+                if (state.isValid) {
+                    makePayment(card.data);
+                }
+            },
+
             onChange: (state, component) => {
                 // state.data;
                 // state.isValid;
@@ -33,15 +42,4 @@ getOriginKey().then(originKey => {
             }
         })
         .mount('#card-container');
-
-    // 3. Submit Payment
-    const payButton = document.querySelector('.pay-button');
-    payButton.addEventListener('click', e => {
-        if (!card.isValid) {
-            card.showValidation();
-            return false;
-        }
-
-        makePayment(card.data);
-    });
 });

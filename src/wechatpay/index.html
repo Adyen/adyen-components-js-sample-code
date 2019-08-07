@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.1.0/adyen.css">
     <link rel="stylesheet" href="../demo.css">
 </head>
 <body>
@@ -37,15 +37,10 @@
     originKey: 'pub...'
 });
 
-const wechat = checkout
-    .create('wechatpay', {
-        paymentData: 'A1348BJWEEW...',
-        amount: { currency: 'CNY', value: 1000 },
-        qrCodeData: 'weixin://...',
-
-        onComplete: (result) => {}
-    })
-    .mount('#wechatpay-container');</code></pre>
+const wechatpay = checkout
+    .createFromAction(response.action)
+    .mount('#wechatpay-container');
+</code></pre>
 
             <div class="request-container">
                 <div class="header">
@@ -65,7 +60,7 @@ const wechat = checkout
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js"></script>
+    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.1.0/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
     <script src="/wechatpay/wechatpay.js"></script>

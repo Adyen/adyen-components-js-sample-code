@@ -5,7 +5,8 @@ getOriginKey().then(originKey => {
         const checkout = new AdyenCheckout({
             environment: 'test',
             originKey: originKey, // Mandatory. originKey from Costumer Area
-            paymentMethodsResponse
+            paymentMethodsResponse,
+            removePaymentMethods: ['paysafecard', 'c_cash']
         });
 
         // 2. Create and mount the Component

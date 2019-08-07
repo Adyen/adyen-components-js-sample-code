@@ -23,7 +23,7 @@ Run from the root of the project:
 
 ```
 $ cd adyen-components-js-sample-code
-$ ./server/php/start.sh
+$ ./start.sh
 ```
 
 A PHP server will start on `http://localhost:3000`.

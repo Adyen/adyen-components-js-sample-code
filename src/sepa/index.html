@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.1.0/adyen.css">
     <link rel="stylesheet" href="../demo.css">
 </head>
 <body>
@@ -16,12 +16,9 @@
             <div class="checkout-container">
                 <h1>SEPA Direct Debit Component</h1>
                 <div class="payment-method">
-
-                    <div id="sepa-container">
+                    <div id="sepa-container" class="payment-method__container">
                         <!-- SEPA Direct Debit Component will be rendered here -->
                     </div>
-
-                    <button class="pay-button">Pay with SEPA Direct Debit</button>
                 </div>
             </div>
 
@@ -77,7 +74,7 @@ const sepa = checkout
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js"></script>
+    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.1.0/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
     <script src="/sepa/sepa.js"></script>

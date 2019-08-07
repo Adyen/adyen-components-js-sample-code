@@ -241,13 +241,14 @@ pre {
 
 #bancontact-container,
 #wechatpay-container {
-    min-width: 80%;
+    min-width: 70%;
+    max-width: 350px;
 }
 
-#card-container {
-    width: 300px;
+.payment-method__container {
+    width: 350px;
 }
 
 #dropin-container {
-    width: 80%;
+    width: 544px;
 }

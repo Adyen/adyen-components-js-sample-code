@@ -3,7 +3,14 @@ getOriginKey().then(originKey => {
     // 1. Create an instance of AdyenCheckout providing an originKey
     const checkout = new AdyenCheckout({
         originKey: originKey, // Mandatory. originKey from Costumer Area
-        environment: 'test'
+        environment: 'test',
+        amount: { currency: 'EUR', value: 1000 }, // amount to be shown next to the qrcode
+        onAdditionalDetails: result => {
+            console.log(result);
+        },
+        onError: error => {
+            console.log(error);
+        }
     });
 
     // Override our default demo config for this payment method
@@ -24,23 +31,9 @@ getOriginKey().then(originKey => {
      *  - paymentData Necessary to communicate with Adyen to check the current payment status
      */
     makePayment(bancontactData).then(response => {
-        if (response.resultCode === 'PresentToShopper') {
+        if (!!response.action) {
             // 2. Create and mount the Component
-            const bancontact = checkout
-                .create('bcmc_mobile', {
-                    paymentData: response.action.paymentData,
-                    amount: { currency: 'EUR', value: 1000 }, // amount to be shown next to the qrcode
-                    qrCodeData: response.action.qrCodeData,
-
-                    // Events
-                    onComplete: result => {
-                        console.log(result);
-                    },
-                    onError: error => {
-                        console.log(error);
-                    }
-                })
-                .mount('#bancontact-container');
+            const bancontact = checkout.createFromAction(response.action).mount('#bancontact-container');
         }
     });
 });
