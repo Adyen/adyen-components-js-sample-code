@@ -17,6 +17,15 @@ These variables can be found in Adyen Customer Area. For more information, visit
 
 ## Installation
 
+### Install CURL
+
+**Ubuntu**
+```
+sudo apt-get install php-curl
+```
+
+[Source](https://stackoverflow.com/a/6382581/4110257)
+
 ### Running the PHP Server
 
 Run from the root of the project:
