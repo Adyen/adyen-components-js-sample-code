@@ -1,0 +1,23 @@
+{
+  "name": "Adyen Components Sample Code",
+  "description": "A php server example containing our Javascript SDK",
+  "keywords": [
+    "Adyen",
+    "Checkout",
+    "Components",
+    "Dropin",
+    "Web",
+    "JavaScript",
+    "payments"
+  ],
+  "website": "https://www.adyen.com/",
+  "repository": "https://github.com/Adyen/adyen-components-js-sample-code",
+  "env": {
+    "MERCHANT_ACCOUNT": {
+      "description": "Your merchant account"
+    },
+    "CHECKOUT_APIKEY": {
+      "description": "Your Checkout API key"
+    }
+  }
+}
