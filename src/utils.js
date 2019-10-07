@@ -13,6 +13,7 @@ const paymentsDefaultConfig = {
     reference: 'Checkout Components sample code test',
     countryCode: 'NL',
     channel: 'Web',
+    returnUrl: 'https://your-company.com/',
     amount: {
         value: 1000,
         currency: 'EUR'

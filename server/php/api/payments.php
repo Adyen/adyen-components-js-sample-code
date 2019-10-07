@@ -17,11 +17,11 @@ function initiatePayment() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v49/payments";
+    $url = "https://checkout-test.adyen.com/v50/payments";
 
     $data = [
         'amount' => [
-            'currency' => 'USD',
+            'currency' => 'EUR',
             'value' => 1000
         ],
         'reference' => 'Order Reference',

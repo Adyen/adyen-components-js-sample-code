@@ -1,6 +1,6 @@
 # Adyen Components sample code
 
-![Adyen Checkout Components Sample Code](screenshot.png)
+![Adyen Components Sample Code](screenshot.png)
 
 > ⚠️ **This repository is for demo purposes only**
 
@@ -19,7 +19,7 @@ These variables can be found in Adyen Customer Area. For more information, visit
 
 ### Running the PHP Server
 
-Run from the root of the project:
+Navigate to the root of the project and run the `start.sh` script:
 
 ```
 $ cd adyen-components-js-sample-code
@@ -28,9 +28,23 @@ $ ./start.sh
 
 A PHP server will start on `http://localhost:3000`.
 
+### Running the Node.js Server
+
+If preferred, you can run a Node.js server instead.
+To do this, navigate to the root of the project, install the dependencies (only the first time) and run the start script:
+
+```
+$ cd adyen-components-js-sample-code
+$ npm i
+$ npm start
+```
+
+A Node.js server will start on `http://localhost:3000`.
+
 ### Deploying this example to Heroku
 
-Alternatively, you can install this example by using this shortcut to deploy to Heroku:<br/>
+Alternatively, you can install this example by using this shortcut to deploy to Heroku:
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Adyen/adyen-components-js-sample-code)
 
 ## Documentation
