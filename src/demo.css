@@ -252,3 +252,8 @@ pre {
 #dropin-container {
     width: 544px;
 }
+
+#boletobancario-container,
+#boletobancario-result-container {
+    width: 550px;
+}

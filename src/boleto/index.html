@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adyen Checkout Components sample code</title>
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.2.0/adyen.css">
+    <link rel="stylesheet" href="../demo.css">
+</head>
+<body>
+    <div class="container container--full-width">
+        <div class="main">
+            <a href="../">Back</a>
+
+            <div class="checkout-container">
+                <h1>Boleto Bancario Component</h1>
+                <h2>Shopper Details Form</h2>
+                <div class="payment-method">
+                    <div id="boletobancario-container" class="payment-method__container">
+                        <!-- Boleto Bancario Component will be rendered here -->
+                    </div>
+                </div>
+
+                <h2>Payment Result (Voucher)</h2>
+                <div class="payment-method">
+                    <div id="boletobancario-result-container" class="payment-method__container">
+                        <!-- The result of the payment action (voucher) will be rendered here  -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <p>
+                    Check the Source Code to see the full implementation.
+                </p>
+                <p>
+                    For more information, please refer to the <a href="https://docs.adyen.com/checkout/components-web/" target="_blank">Checkout Components documentation</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="header">
+                <h2>Basic Implementation</h2>
+                <button class="copy-sample-code" aria-label="Copy sample code"></button>
+            </div>
+            <pre class="source-code"><code>const checkout = new AdyenCheckout({
+                onChange: (state, component) => {
+                    // state.data;
+                    // state.isValid;
+                }
+            });
+
+const boleto = checkout
+    .create('boletobancario')
+    .mount('#boletobancario-container');</code></pre>
+
+            <div class="header">
+                <h2>Current state</h2>
+            </div>
+            <pre class="current-state">{}</pre>
+
+            <div class="request-container">
+                <div class="header">
+                    <h2>Request</h2>
+                </div>
+                <p>The request to the <code>/payments</code> endpoint will be shown here.</p>
+                <pre class="request-code"></pre>
+            </div>
+
+            <div class="response-container">
+                <div class="header">
+                    <h2>Response</h2>
+                </div>
+                <p>The response from the <code>/payments</code> endpoint will be shown here.</p>
+                <pre class="response-code"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.2.0/adyen.js"></script>
+    <script src="../demo.js"></script>
+    <script src="../utils.js"></script>
+    <script src="/boleto/boleto.js"></script>
+</body>
+</html>
