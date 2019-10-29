@@ -5,8 +5,9 @@
  * /originKeys Documentation: https://docs.adyen.com/api-explorer/#/CheckoutUtility/v1/originKeys
  */
 function getOriginKey() {
-    $apikey = getenv('CHECKOUT_APIKEY');
-    $merchantAccount = getenv('MERCHANT_ACCOUNT');
+    // Trim control chars that might sneak in
+    $apikey = trim(getenv('CHECKOUT_APIKEY'));
+    $merchantAccount = trim(getenv('MERCHANT_ACCOUNT'));
     $url = "https://checkout-test.adyen.com/v1/originKeys";
 
     // Get the current domain
