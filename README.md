@@ -51,6 +51,10 @@ Alternatively, you can install this example by using this shortcut to deploy to 
 
 For the complete integration guide, refer to the [Web Components documentation](https://docs.adyen.com/checkout/components-web/).
 
+## Other sample projects
+
+Find other sample projects in our [example projects repositories](https://github.com/adyen-examples).
+
 ## License
 
 This repository is open source and available under the MIT license. For more information, see the LICENSE file.
