@@ -9,7 +9,12 @@ function updateStateContainer(newState) {
 
 // Demo - Update request container
 function updateRequestContainer(response) {
-    requestContainer.querySelector('pre').innerText = JSON.stringify(response, null, 2);
+    const defaultResponseParams = { merchantAccount: 'YOUR_MERCHANT_ACCOUNT' };
+    requestContainer.querySelector('pre').innerText = JSON.stringify(
+        { ...defaultResponseParams, ...response },
+        null,
+        2
+    );
     requestContainer.classList.add('request-container--visible');
 }
 
