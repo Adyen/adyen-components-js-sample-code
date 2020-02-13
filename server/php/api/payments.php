@@ -17,7 +17,7 @@ function initiatePayment() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v51/payments";
+    $url = "https://checkout-test.adyen.com/v52/payments";
 
     $data = [
         'amount' => [
