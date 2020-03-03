@@ -3,7 +3,7 @@ getOriginKey().then(originKey => {
     // 1. Create an instance of AdyenCheckout
     const checkout = new AdyenCheckout({
         environment: 'test',
-        originKey: originKey // Mandatory. originKey from Costumer Area
+        originKey: originKey // Mandatory. originKey from Customer Area
     });
 
     // 2. Create and mount the Component
