@@ -1,6 +1,6 @@
-# Adyen Components sample code
+# Adyen Web sample code
 
-![Adyen Components Sample Code](screenshot.png)
+![Adyen Web Sample Code](screenshot.png)
 
 > ⚠️ **This repository is for demo purposes only**
 
