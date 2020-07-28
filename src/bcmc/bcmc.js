@@ -5,20 +5,12 @@ getOriginKey().then(originKey => {
         originKey: originKey,
         environment: 'test',
         amount: { currency: 'EUR', value: 1000 },
-        onAdditionalDetails: result => {
-            console.log(result);
-        },
-        onError: error => {
-            console.log(error);
+        showPayButton: true,
+        onSubmit: (state, component) => {
+            makePayment(state.data);
         }
     });
 
     // 2. Create and mount component.
-    checkout.create(
-        'bcmc',
-        {
-            hasHolderName: true,
-            holderNameRequired: true
-        }
-    ).mount('#bcmc-container');
+    checkout.create('bcmc').mount('#bcmc-container');
 });
