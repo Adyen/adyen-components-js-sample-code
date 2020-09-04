@@ -13,7 +13,7 @@ MERCHANT_ACCOUNT=MyMerchantAccount
 CHECKOUT_APIKEY=MY_CHECKOUT_API_KEY
 ```
 
-These variables can be found in Adyen Customer Area. For more information, visit our [Get started with Adyen guide](https://docs.adyen.com/payments-essentials/get-started-with-adyen).
+These variables can be found in Adyen Customer Area. For more information, visit our [Get started with Adyen guide](https://docs.adyen.com/get-started-with-adyen#page-introduction).
 
 ## Installation
 
