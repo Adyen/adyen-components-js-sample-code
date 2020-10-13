@@ -1,8 +1,8 @@
 // 0. Get origin key
-getOriginKey().then(originKey => {
+getClientKey().then(clientKey => {
     // 1. Create an instance of AdyenCheckout providing an originKey
     const checkout = new AdyenCheckout({
-        originKey: originKey,
+        clientKey: clientKey,
         environment: 'test',
         amount: { currency: 'EUR', value: 1000 },
         showPayButton: true,

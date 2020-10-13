@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.11.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.15.1/adyen.css">
     <link rel="stylesheet" href="../demo.css">
 </head>
 <body>
@@ -42,7 +42,7 @@
             </div>
             <pre class="source-code"><code>const checkout = new AdyenCheckout({
     environment: 'test',
-    originKey: 'pub...',
+    clientKey: 'test_...',
     onChange: (state, component) => {
         // state.data;
         // state.isValid;
@@ -76,7 +76,7 @@ const card = checkout
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.11.0/adyen.js"></script>
+    <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.15.1/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
     <script src="/card/card.js"></script>

@@ -1,9 +1,9 @@
 // 0. Get originKey
-getOriginKey().then(originKey => {
+getClientKey().then(clientKey => {
     // 1. Create an instance of AdyenCheckout providing an originKey
     const checkout = new AdyenCheckout({
         environment: 'test',
-        originKey: originKey, // Mandatory. originKey from Customer Area
+        clientKey: clientKey, // Mandatory. originKey from Customer Area
         amount: { currency: 'CNY', value: 1000 }, // amount to be shown next to the qrcode
         onAdditionalDetails: state => {
             console.log(state.data);
