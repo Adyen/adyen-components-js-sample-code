@@ -18,8 +18,8 @@ These variables can be found in Adyen Customer Area. For more information, visit
 
 If the forms don't seem to load, please check if you have:
 
-1. Used the correct clientKey
-2. Configured the origin on the Customer Area as an allowed origin
+1. Used the correct `clientKey`
+2. Configured the `origin` on the Customer Area as an allowed origin
 
 ## Installation
 
