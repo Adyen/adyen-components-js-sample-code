@@ -1,10 +1,10 @@
-// 0. Get originKey
-getOriginKey().then(originKey => {
+// 0. Get clientKey
+getClientKey().then(clientKey => {
     getPaymentMethods().then(paymentMethodsResponse => {
         // 1. Create an instance of AdyenCheckout
         const checkout = new AdyenCheckout({
             environment: 'test',
-            originKey: originKey, // Mandatory. originKey from Customer Area
+            clientKey: clientKey, // Mandatory. originKey from Customer Area
             paymentMethodsResponse,
             removePaymentMethods: ['paysafecard', 'c_cash']
         });

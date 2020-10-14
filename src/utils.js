@@ -80,3 +80,13 @@ const getOriginKey = () =>
             return response.originKeys[Object.keys(response.originKeys)[0]];
         })
         .catch(console.error);
+
+// Fetches a clientKey from the 
+const getClientKey = () =>
+    httpPost('clientKeys')
+        .then(response => {
+            if (response.error || !response.clientKey) throw 'No clientKey available';
+
+            return response.clientKey;
+        })
+        .catch(console.error);

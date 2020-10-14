@@ -11,9 +11,15 @@ To run this project, **create** a `.env` file on your project's root folder foll
 ```
 MERCHANT_ACCOUNT=MyMerchantAccount
 CHECKOUT_APIKEY=MY_CHECKOUT_API_KEY
+CLIENT_KEY=MY_CLIENT_KEY
 ```
 
 These variables can be found in Adyen Customer Area. For more information, visit our [Get started with Adyen guide](https://docs.adyen.com/get-started-with-adyen#page-introduction).
+
+If the forms don't seem to load, please check if you have:
+
+1. Used the correct `clientKey`
+2. Configured the `origin` on the Customer Area as an allowed origin
 
 ## Installation
 
