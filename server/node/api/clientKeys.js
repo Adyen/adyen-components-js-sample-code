@@ -1,6 +1,6 @@
-const { post } = require('request');
+const { CLIENT_KEY: clientKey } = require('../utils/config');
 const handleCallback = require('../utils/handleCallback');
 
 module.exports = (res, request) => {
-    post('/clientKeys', (err, response, body) => handleCallback({ err, response, body }, res));
+    handleCallback({ body: { clientKey } }, res);
 };
