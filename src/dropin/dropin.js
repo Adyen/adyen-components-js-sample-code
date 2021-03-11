@@ -6,7 +6,15 @@ getClientKey().then(clientKey => {
             environment: 'test',
             clientKey: clientKey, // Mandatory. clientKey from Customer Area
             paymentMethodsResponse,
-            removePaymentMethods: ['paysafecard', 'c_cash']
+            removePaymentMethods: ['paysafecard', 'c_cash'],
+            onChange: state => {
+                updateStateContainer(state); // Demo purposes only
+            },
+            onSubmit: (state, component) => {
+                // state.data;
+                // state.isValid;
+                makePayment(state.data);
+            }
         });
 
         // 2. Create and mount the Component
@@ -14,15 +22,7 @@ getClientKey().then(clientKey => {
             .create('dropin', {
                 // Events
                 onSelect: activeComponent => {
-                    updateStateContainer(activeComponent.data); // Demo purposes only
-                },
-                onChange: state => {
-                    updateStateContainer(state); // Demo purposes only
-                },
-                onSubmit: (state, component) => {
-                    // state.data;
-                    // state.isValid;
-                    makePayment(state.data);
+                    if (activeComponent.state && activeComponent.state.data) updateStateContainer(activeComponent.data); // Demo purposes only
                 }
             })
             .mount('#dropin-container');
