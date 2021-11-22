@@ -71,6 +71,25 @@ const makePayment = (paymentMethod, config = {}) => {
         .catch(console.error);
 };
 
+// Posts a new payment into the local server
+const sessions = (paymentMethod, config = {}) => {
+    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
+    const paymentRequest = { ...paymentsConfig, ...paymentMethod };
+
+    updateRequestContainer(paymentRequest);
+
+    return httpPost('sessions', paymentRequest)
+        .then(response => {
+            if (response.error) throw 'Payment initiation failed';
+
+            updateResponseContainer(response);
+
+            return response;
+        })
+        .catch(console.error);
+};
+
+
 // Fetches an originKey from the local server
 const getOriginKey = () =>
     httpPost('originKeys')

@@ -8,6 +8,7 @@ require('api/paymentMethods.php');
 require('api/payments.php');
 require('api/originKeys.php');
 require('api/clientKeys.php');
+require('api/sessions.php');
 
 // Basic routing
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
@@ -35,6 +36,12 @@ switch($request_uri[0]) {
     case '/clientKeys':
         header('Content-Type: application/json');
         echo getClientKey();
+        break;
+            
+    // /sessions
+    case '/sessions':
+        header('Content-Type: application/json');
+        echo initiateSessions();
         break;
     // default
     default:
