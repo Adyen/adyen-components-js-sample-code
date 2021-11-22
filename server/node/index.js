@@ -6,6 +6,7 @@ const getPaymentMethods = require('./api/paymentMethods');
 const getOriginKeys = require('./api/originKeys');
 const getClientKeys = require('./api/clientKeys');
 const makePayment = require('./api/payments');
+const sessions = require('./api/sessions');
 
 module.exports = (() => {
     app.use(express.json());
@@ -22,6 +23,7 @@ module.exports = (() => {
     app.all('/originKeys', (req, res) => getOriginKeys(res, req));
     app.all('/paymentMethods', (req, res) => getPaymentMethods(res, req.body));
     app.all('/payments', (req, res) => makePayment(res, req.body));
+    app.all('/sessions', (req, res) => sessions(res, req.body));
     app.all('/clientKeys', (req, res) => getClientKeys(res, req));
 
     const port = process.env.PORT || 3000;
