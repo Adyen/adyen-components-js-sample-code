@@ -6,8 +6,7 @@ getClientKey().then(clientKey => {
     const redirectResult = urlParams.get('redirectResult')
     const sessionId = urlParams.get('sessionId')
 
-    // If no paramters are present in the URL, mount the Drop-in
-    if (!redirectResult && !sessionId) {
+    function initiateSession() {
         sessions()
             .then(response => {
                 console.log(response)
@@ -29,6 +28,8 @@ getClientKey().then(clientKey => {
                     paymentMethodsConfiguration: {
                         card: {
                             // Optional configuration
+                            hasHolderName: true,
+                            holderNameRequired: true
                         }
                     }
                 };
@@ -41,7 +42,9 @@ getClientKey().then(clientKey => {
                 }
                 initiateCheckout()
             })
-    } else {
+    }
+
+    function handleRedirect() {
         const configuration = {
             environment: 'test', // Change to 'live' for the live environment.
             clientKey: clientKey, // Public key used for client-side authentication: https://docs.adyen.com/development-resources/client-side-authentication
@@ -61,8 +64,21 @@ getClientKey().then(clientKey => {
             // Configure the instance with the sessionId you extracted from the returnUrl.
             const checkout = await AdyenCheckout(configuration);
             // Submit the redirectResult value you extracted from the returnUrl.
-            checkout.submitDetails({details: { redirectResult } });
+            checkout.submitDetails({
+                details: {
+                    redirectResult
+                }
+            });
         }
         handleRedirectResult()
+    }
+
+    // If no paramters are present in the URL, mount the Drop-in
+    if (!redirectResult && !sessionId) {
+        console.log('Starting new session')
+        initiateSession()
+    } else {
+        console.log('Handling redirect')
+        handleRedirect()
     }
 })

@@ -1,4 +1,12 @@
-const returnUrl = window.location.href
+// Function to set returnUrl, for standard Drop-in and Components, return to placeholder,
+// else redirect back to sessions where we handle the redirectResult
+function setReturnUrl(){
+    if(window.location.href === 'http://localhost:3000/sessions/') {
+        return 'http://localhost:3000/sessions/'
+    } else {
+        return 'https://your-company.com/'
+    }
+}
 
 const paymentMethodsConfig = {
     shopperReference: 'Checkout Components sample code test',
@@ -15,7 +23,7 @@ const paymentsDefaultConfig = {
     reference: 'Checkout Components sample code test',
     countryCode: 'NL',
     channel: 'Web',
-    returnUrl: returnUrl,
+    returnUrl: setReturnUrl(),
     amount: {
         value: 1000,
         currency: 'EUR'
