@@ -1,3 +1,5 @@
+const returnUrl = window.location.href
+
 const paymentMethodsConfig = {
     shopperReference: 'Checkout Components sample code test',
     reference: 'Checkout Components sample code test',
@@ -13,7 +15,7 @@ const paymentsDefaultConfig = {
     reference: 'Checkout Components sample code test',
     countryCode: 'NL',
     channel: 'Web',
-    returnUrl: 'https://your-company.com/',
+    returnUrl: returnUrl,
     amount: {
         value: 1000,
         currency: 'EUR'
