@@ -45,16 +45,23 @@
                 <h2>Basic Implementation</h2>
                 <button class="copy-sample-code" aria-label="Copy sample code"></button>
             </div>
-            <pre class="source-code"><code>const checkout = new AdyenCheckout({
+            <pre class="source-code"><code>const checkout = await AdyenCheckout({
     environment: 'test',
     clientKey: 'test_...',
-    paymentMethodsResponse: { ... }
+    session: {
+        id: "CS62BB0....",
+        sessionData: "Ab02b4c0!BQABA....""
+    },
+    onPaymentCompleted: (result, component) => {
+        console.info(result, component);
+    },
+    onError: (error, component) => {
+        console.error(error.name, error.message, error.stack, component);
+    }
 });
-
+                            
 const dropin = checkout
-    .create('dropin', {
-        onSubmit: (state, dropin) => {}
-    })
+    .create('dropin')
     .mount('#dropin-container');</code></pre>
 
             <div class="header">
