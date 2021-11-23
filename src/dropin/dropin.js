@@ -1,8 +1,7 @@
 // 0. Get clientKey
 getClientKey().then(clientKey => {
     getPaymentMethods().then(paymentMethodsResponse => {
-        // 1. Create an instance of AdyenCheckout
-        const checkout = new AdyenCheckout({
+        const configuration = {
             environment: 'test',
             clientKey: clientKey, // Mandatory. clientKey from Customer Area
             paymentMethodsResponse,
@@ -10,21 +9,27 @@ getClientKey().then(clientKey => {
             onChange: state => {
                 updateStateContainer(state); // Demo purposes only
             },
-            onSubmit: (state, component) => {
+            onSubmit: (state, dropin) => {
                 // state.data;
                 // state.isValid;
                 makePayment(state.data);
             }
-        });
+        };
 
-        // 2. Create and mount the Component
-        const dropin = checkout
-            .create('dropin', {
-                // Events
-                onSelect: activeComponent => {
-                    if (activeComponent.state && activeComponent.state.data) updateStateContainer(activeComponent.data); // Demo purposes only
-                }
-            })
-            .mount('#dropin-container');
+        // 1. Create an instance of AdyenCheckout
+        async function initiateDropin(){
+            const checkout = await AdyenCheckout(configuration);
+
+            // 2. Create and mount the Component
+            const dropin = checkout
+                .create('dropin', {
+                    // Events
+                    onSelect: activeComponent => {
+                        if (activeComponent.state && activeComponent.state.data) updateStateContainer(activeComponent.data); // Demo purposes only
+                    }
+                })
+                .mount('#dropin-container');
+        }
+        initiateDropin()
     });
 });
