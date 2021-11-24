@@ -263,6 +263,7 @@ pre {
     border: 2px solid #e6e9eb;
     border-radius: 12px;
     padding: 0px 10px;
+    font-weight: 300;
 }
 
 #result-code {

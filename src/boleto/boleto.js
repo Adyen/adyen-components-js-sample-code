@@ -20,7 +20,7 @@ async function initiateComponent() {
     // This is a mock of the /payments response action property
     const actionMock = {
         downloadUrl: 'https://...',
-        expiresAt: '2019-09-11T00:00:00',
+        expiresAt: '2022-09-11T00:00:00',
         initialAmount: {
             currency: 'BRL',
             value: 1000

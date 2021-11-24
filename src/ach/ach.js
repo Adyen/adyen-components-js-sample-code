@@ -17,7 +17,7 @@ getClientKey().then(clientKey => {
             environment: 'test',
             // Optional, provide translations for labels and fields
             // https://docs.adyen.com/online-payments/web-components/localization-components
-            translations: translations,
+            // translations: translations,
             clientKey: clientKey, // Mandatory. clientKey from Customer Area
         });
 
