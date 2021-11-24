@@ -257,3 +257,14 @@ pre {
 #boletobancario-result-container {
     width: 550px;
 }
+
+#result-container {
+    background: #f7f8f9;
+    border: 2px solid #e6e9eb;
+    border-radius: 12px;
+    padding: 0px 10px;
+}
+
+#result-code {
+    font-size: 1.2rem;
+}

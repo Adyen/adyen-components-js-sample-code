@@ -1,13 +1,14 @@
 // 0. Get clientKey
 getClientKey().then(clientKey => {
 
-    const translations = {
-        "en-GB": {
-            "ach.bankAccount": "Bank account",
-            "ach.accountHolderNameField.title": "Account holder name",
-            "ach.accountHolderNameField.placeholder": "J. Smith",
-        }
-    };
+    // Optional, provide a translations object for labels and fields
+    // const translations = {
+    //     "en-GB": {
+    //         "ach.bankAccount": "Bank account",
+    //         "ach.accountHolderNameField.title": "Account holder name",
+    //         "ach.accountHolderNameField.placeholder": "J. Smith",
+    //     }
+    // };
 
     async function initiateComponent() {
         // 1. Create an instance of AdyenCheckout

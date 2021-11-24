@@ -77,6 +77,7 @@ getClientKey().then(clientKey => {
     if (!redirectResult && !sessionId) {
         console.log('Starting new session')
         initiateSession()
+    // Otherwise, handle the redirect
     } else {
         console.log('Handling redirect')
         handleRedirect()
