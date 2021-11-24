@@ -11,7 +11,7 @@
     "payments"
   ],
   "website": "https://www.adyen.com/",
-  "repository": "https://github.com/Seabhac-94/adyen-components-js-sample-code",
+  "repository": "https://github.com/Adyen/adyen-components-js-sample-code",
   "env": {
     "MERCHANT_ACCOUNT": {
       "description": "Your merchant account"
