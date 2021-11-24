@@ -1,11 +1,23 @@
 // 0. Get clientKey
 getClientKey().then(clientKey => {
 
+    const translations = {
+        "en-GB": {
+            "ach.bankAccount": "Bank account",
+            "ach.accountHolderNameField.title": "Account holder name",
+            "ach.accountHolderNameField.placeholder": "J. Smith",
+        }
+    };
+
     async function initiateComponent() {
         // 1. Create an instance of AdyenCheckout
         const checkout = await AdyenCheckout({
+            locale: "en-GB",
             environment: 'test',
-            clientKey: clientKey // Mandatory. clientKey from Customer Area
+            // Optional, provide translations for labels and fields
+            // https://docs.adyen.com/online-payments/web-components/localization-components
+            translations: translations,
+            clientKey: clientKey, // Mandatory. clientKey from Customer Area
         });
 
         // 2. Create and mount the Component
@@ -16,18 +28,7 @@ getClientKey().then(clientKey => {
 
                 // Optional. Customize the look and feel of the payment form
                 // https://docs.adyen.com/developers/checkout/api-integration/configure-secured-fields/styling-secured-fields
-                styles: {
-                    validated: {
-                        color: 'red'
-                      } 
-                },
-
-                // Optional. Define custom placeholders for the Ach fields
-                // https://docs.adyen.com/developers/checkout/api-integration/configure-secured-fields/styling-secured-fields
-                placeholders: {
-                    // encryptedBankAccountNumber: '9999 9999 9999 9999',
-                    // encryptedBankLocationId: '987654321',
-                },
+                styles: {},
 
                 // Optionally show a Pay Button
                 showPayButton: true,
