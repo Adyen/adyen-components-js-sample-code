@@ -1,5 +1,4 @@
 getPaymentMethods().then(response => {
-
     async function initiateComponent() {
         // 1. Create an instance of AdyenCheckout
         const checkout = await AdyenCheckout({
