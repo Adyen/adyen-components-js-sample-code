@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.8.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.2.0/adyen.css">
     <link rel="stylesheet" href="../demo.css">
 </head>
 <body>
@@ -37,7 +37,7 @@
                 <h2>Basic Implementation</h2>
                 <button class="copy-sample-code" aria-label="Copy sample code"></button>
             </div>
-            <pre class="source-code"><code>const checkout = new AdyenCheckout({
+            <pre class="source-code"><code>const checkout = await AdyenCheckout({
     clientKey: 'test_...'
 });
 
@@ -63,7 +63,7 @@ const bancontact = checkout
         </div>
     </div>
 
-    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.8.0/adyen.js"></script>
+    <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.2.0/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
     <script src="/bcmc/bcmc.js"></script>
