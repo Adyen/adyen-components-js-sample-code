@@ -1,5 +1,6 @@
+async function initiateComponent() {
 // 1. Create an instance of AdyenCheckout
-const checkout = new AdyenCheckout({});
+const checkout = await AdyenCheckout({});
 
 // 2. Create and mount the Component
 const googlepay = checkout
@@ -27,3 +28,5 @@ const googlepay = checkout
     // Here we are mounting it directly for demo purposes.
     // Please refer to the documentation for more information on Google Pay's availability.
     .mount('#googlepay-container');
+}
+initiateComponent()
