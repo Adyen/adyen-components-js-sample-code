@@ -53,6 +53,8 @@ Alternatively, you can install this example by using this shortcut to deploy to 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Adyen/adyen-components-js-sample-code)
 
+After deploying, to use Sessions Drop-in, add your ```CLIENT_KEY``` to the config vars.
+
 ## Documentation
 
 For the complete integration guide, refer to the [Web Components documentation](https://docs.adyen.com/checkout/components-web/).
