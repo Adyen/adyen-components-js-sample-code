@@ -1,8 +1,8 @@
 // Function to set returnUrl, for standard Drop-in and Components, return to placeholder,
 // else redirect back to sessions where we handle the redirectResult
 function setReturnUrl(){
-    if(window.location.href === 'http://localhost:3000/sessions/') {
-        return 'http://localhost:3000/sessions/'
+    if(window.location.pathname === '/sessions/') {
+        return window.location.href
     } else {
         return 'https://your-company.com/'
     }

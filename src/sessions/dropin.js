@@ -44,7 +44,7 @@ getClientKey().then(clientKey => {
             })
     }
 
-    function handleRedirect() {
+    async function handleRedirect() {
         const configuration = {
             environment: 'test', // Change to 'live' for the live environment.
             clientKey: clientKey, // Public key used for client-side authentication: https://docs.adyen.com/development-resources/client-side-authentication
@@ -52,25 +52,24 @@ getClientKey().then(clientKey => {
                 id: sessionId, // Retreived identifier for the payment completion on redirect.
             },
             onPaymentCompleted: (result, component) => {
+                console.info(result)
                 const paymentResult = result.resultCode
-                document.getElementById('result-code').innerHTML = paymentResult
+                if (paymentResult === 'Authorised' || paymentResult === 'Received') {
+                    document.getElementById('result-container').innerHTML = '<img alt="Success" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.svg">';
+                    
+                } else {
+                    document.getElementById('result-container').innerHTML = '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">' 
+                }
             },
             onError: (error, component) => {
                 console.error(error.name, error.message, error.stack, component);
             },
         };
-        async function handleRedirectResult() {
-            // Create an instance of AdyenCheckout to handle the shopper returning to your website.
-            // Configure the instance with the sessionId you extracted from the returnUrl.
-            const checkout = await AdyenCheckout(configuration);
-            // Submit the redirectResult value you extracted from the returnUrl.
-            checkout.submitDetails({
-                details: {
-                    redirectResult
-                }
-            });
-        }
-        handleRedirectResult()
+        // Create an instance of AdyenCheckout to handle the shopper returning to your website.
+        // Configure the instance with the sessionId you extracted from the returnUrl.
+        const checkout = await AdyenCheckout(configuration);
+        // Submit the redirectResult value you extracted from the returnUrl.
+        checkout.submitDetails({ details: { redirectResult } });
     }
 
     // If no paramters are present in the URL, mount the Drop-in
