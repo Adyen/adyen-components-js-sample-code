@@ -18,12 +18,17 @@ getClientKey().then(clientKey => {
                     },
                     onPaymentCompleted: (result, component) => {
                         console.info(result, component);
+                        updateResponseContainer(result);
                     },
                     onError: (error, component) => {
                         console.error(error.name, error.message, error.stack, component);
                     },
                     onChange: (state, component) => {
                         updateStateContainer(state); // Demo purposes only
+                    },
+                    beforeSubmit: (data, component, actions) => {
+                        updateRequestContainer(data);
+                        actions.resolve(data);
                     },
                     // Any payment method specific configuration. Find the configuration specific to each payment method:  https://docs.adyen.com/payment-methods
                     // For example, this is 3D Secure configuration for cards:
@@ -62,10 +67,11 @@ getClientKey().then(clientKey => {
                 const paymentResult = result.resultCode
                 if (paymentResult === 'Authorised' || paymentResult === 'Received') {
                     document.getElementById('result-container').innerHTML = '<img alt="Success" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.svg">';
-                    
+
                 } else {
-                    document.getElementById('result-container').innerHTML = '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">' 
+                    document.getElementById('result-container').innerHTML = '<img alt="Error" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.svg">'
                 }
+                updateResponseContainer(result);
             },
             onError: (error, component) => {
                 console.error(error.name, error.message, error.stack, component);
@@ -81,7 +87,7 @@ getClientKey().then(clientKey => {
     // If no paramters are present in the URL, mount the Drop-in
     if (!redirectResult && !sessionId) {
         initiateSession()
-    // Otherwise, handle the redirect
+        // Otherwise, handle the redirect
     } else {
         handleRedirect()
     }

@@ -84,16 +84,11 @@ const makePayment = (paymentMethod, config = {}) => {
 // Posts a new payment into the local server
 const sessions = (paymentMethod, config = {}) => {
     const paymentsConfig = { ...paymentsDefaultConfig, ...config };
-    const paymentRequest = { ...paymentsConfig, ...paymentMethod };
+    const sessionRequest = { ...paymentsConfig, ...paymentMethod };
 
-    updateRequestContainer(paymentRequest);
-
-    return httpPost('sessions', paymentRequest)
+    return httpPost('sessions', sessionRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
-
-            updateResponseContainer(response);
-
             return response;
         })
         .catch(console.error);

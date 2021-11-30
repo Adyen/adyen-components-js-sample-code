@@ -17,7 +17,7 @@ getClientKey().then(clientKey => {
         };
 
         // 1. Create an instance of AdyenCheckout
-        async function initiateDropin(){
+        async function initiateDropin() {
             const checkout = await AdyenCheckout(configuration);
 
             // 2. Create and mount the Component
