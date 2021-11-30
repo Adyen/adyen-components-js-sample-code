@@ -22,6 +22,9 @@ getClientKey().then(clientKey => {
                     onError: (error, component) => {
                         console.error(error.name, error.message, error.stack, component);
                     },
+                    onChange: (state, component) => {
+                        updateStateContainer(state); // Demo purposes only
+                    },
                     // Any payment method specific configuration. Find the configuration specific to each payment method:  https://docs.adyen.com/payment-methods
                     // For example, this is 3D Secure configuration for cards:
                     paymentMethodsConfiguration: {
@@ -37,7 +40,11 @@ getClientKey().then(clientKey => {
                     const checkout = await AdyenCheckout(configuration);
 
                     // Create an instance of Drop-in and mount it to the container you created.
-                    const dropinComponent = checkout.create('dropin').mount('#dropin-container');
+                    const dropinComponent = checkout.create('dropin', {
+                        onSelect: activeComponent => {
+                            if (activeComponent.state && activeComponent.state.data) updateStateContainer(activeComponent.data); // Demo purposes only
+                        }
+                    }).mount('#dropin-container');
                 }
                 initiateCheckout()
             })
