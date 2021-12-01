@@ -1,6 +1,6 @@
 // 0. Get clientKey
 getClientKey().then(clientKey => {
-    getPaymentMethods().then(paymentMethodsResponse => {
+    getPaymentMethods().then(async paymentMethodsResponse => {
         const configuration = {
             environment: 'test',
             clientKey: clientKey, // Mandatory. clientKey from Customer Area
@@ -17,7 +17,6 @@ getClientKey().then(clientKey => {
         };
 
         // 1. Create an instance of AdyenCheckout
-        async function initiateDropin() {
             const checkout = await AdyenCheckout(configuration);
 
             // 2. Create and mount the Component
@@ -29,7 +28,6 @@ getClientKey().then(clientKey => {
                     }
                 })
                 .mount('#dropin-container');
-        }
-        initiateDropin()
+
     });
 });
