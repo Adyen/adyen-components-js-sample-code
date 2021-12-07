@@ -1,6 +1,6 @@
-getPaymentMethods().then(response => {
+getPaymentMethods().then(async response => {
     // 1. Create an instance of AdyenCheckout
-    const checkout = new AdyenCheckout({
+    const checkout = await AdyenCheckout({
         paymentMethodsResponse: response,
 
         // Optionally show a Pay Button

@@ -14,20 +14,24 @@
             <div class="checkout-container">
                 <a href="../">Back</a>
 
-                <h1>Bancontact Card Component</h1>
+                <h1>Sessions Drop-in</h1>
                 <div class="payment-method">
-
-                    <div id="bcmc-container">
-                        <!-- Bancontact Card Component will be rendered here -->
+                    <div id="dropin-container">
+                        <!-- Drop-in will be rendered here -->
                     </div>
+                    <div id="result-container"></div>
                 </div>
             </div>
+
             <div class="info">
                 <p>
                     Check the Source Code to see the full implementation.
                 </p>
                 <p>
-                    For more information, please refer to the <a href="https://docs.adyen.com/checkout/components-web/" target="_blank">Checkout Components documentation</a>.
+                    To make a payment, use our <a href="https://docs.adyen.com/developers/development-resources/test-cards/test-card-numbers" target="_blank">test card numbers</a>.
+                </p>
+                <p>
+                    For more information, please refer to the <a href="https://docs.adyen.com/checkout/drop-in-web/" target="_blank">Drop-in documentation</a>.
                 </p>
             </div>
         </div>
@@ -38,12 +42,28 @@
                 <button class="copy-sample-code" aria-label="Copy sample code"></button>
             </div>
             <pre class="source-code"><code>const checkout = await AdyenCheckout({
-    clientKey: 'test_...'
+    environment: 'test',
+    clientKey: 'test_...',
+    session: {
+        id: "CS62BB0....",
+        sessionData: "Ab02b4c0!BQABA....""
+    },
+    onPaymentCompleted: (result, component) => {
+        console.info(result, component);
+    },
+    onError: (error, component) => {
+        console.error(error.name, error.message, error.stack, component);
+    }
 });
+                            
+const dropin = checkout
+    .create('dropin')
+    .mount('#dropin-container');</code></pre>
 
-const bancontact = checkout
-    .create('bcmc')
-    .mount('#bcmc-container');</code></pre>
+            <div class="header">
+                <h2>Current state</h2>
+            </div>
+            <pre class="current-state">{}</pre>
 
             <div class="request-container">
                 <div class="header">
@@ -66,6 +86,6 @@ const bancontact = checkout
     <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.2.0/adyen.js"></script>
     <script src="../demo.js"></script>
     <script src="../utils.js"></script>
-    <script src="/bcmc/bcmc.js"></script>
+    <script src="/sessions/dropin.js"></script>
 </body>
 </html>

@@ -1,3 +1,13 @@
+// Function to set returnUrl, for standard Drop-in and Components, return to placeholder,
+// else redirect back to sessions where we handle the redirectResult
+function setReturnUrl(){
+    if(window.location.pathname === '/sessions/') {
+        return window.location.href
+    } else {
+        return 'https://your-company.com/'
+    }
+}
+
 const paymentMethodsConfig = {
     shopperReference: 'Checkout Components sample code test',
     reference: 'Checkout Components sample code test',
@@ -13,7 +23,7 @@ const paymentsDefaultConfig = {
     reference: 'Checkout Components sample code test',
     countryCode: 'NL',
     channel: 'Web',
-    returnUrl: 'https://your-company.com/',
+    returnUrl: setReturnUrl(),
     amount: {
         value: 1000,
         currency: 'EUR'
@@ -70,6 +80,20 @@ const makePayment = (paymentMethod, config = {}) => {
         })
         .catch(console.error);
 };
+
+// Posts a new payment into the local server
+const sessions = (paymentMethod, config = {}) => {
+    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
+    const sessionRequest = { ...paymentsConfig, ...paymentMethod };
+
+    return httpPost('sessions', sessionRequest)
+        .then(response => {
+            if (response.error) throw 'Payment initiation failed';
+            return response;
+        })
+        .catch(console.error);
+};
+
 
 // Fetches an originKey from the local server
 const getOriginKey = () =>

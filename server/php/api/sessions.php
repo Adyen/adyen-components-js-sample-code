@@ -8,7 +8,7 @@
 /**
  * Make a payment
  */
-function initiatePayment() {
+function initiateSessions() {
     if (file_get_contents('php://input') != '') {
         $request = json_decode(file_get_contents('php://input'), true);
     } else {
@@ -17,7 +17,7 @@ function initiatePayment() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v68/payments";
+    $url = "https://checkout-test.adyen.com/v68/sessions";
 
     $data = [
         'amount' => [

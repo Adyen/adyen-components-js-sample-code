@@ -1,11 +1,14 @@
 // 0. Get clientKey
 getClientKey().then(clientKey => {
-    getPaymentMethods().then(paymentMethodsResponse => {
+    getPaymentMethods().then(async paymentMethodsResponse => {
         // 1. Create an instance of AdyenCheckout
-        const checkout = new AdyenCheckout({
+        const checkout = await AdyenCheckout({
             clientKey: clientKey, // Mandatory. clientKey from Customer Area
             environment: 'test',
-            amount: { currency: 'EUR', value: 1000 },
+            amount: {
+                currency: 'EUR',
+                value: 1000
+            },
             onAdditionalDetails: result => {
                 console.log(result);
             },
@@ -16,7 +19,7 @@ getClientKey().then(clientKey => {
             paymentMethodsResponse
         });
 
-        function initialSubmit (state, component) {
+        function initialSubmit(state, component) {
             makePayment(state.data).then(response => {
                 component.unmount();
                 // 3. present the voucher using the action object returned from /payments
@@ -26,5 +29,6 @@ getClientKey().then(clientKey => {
 
         // 2. create Multibanco component
         checkout.create('multibanco').mount('#multibanco-container');
+
     });
 });

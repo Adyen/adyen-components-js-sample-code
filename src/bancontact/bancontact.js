@@ -1,10 +1,13 @@
 // 0. Get clientKey
-getClientKey().then(clientKey => {
+getClientKey().then(async clientKey => {
     // 1. Create an instance of AdyenCheckout providing the clientKey
-    const checkout = new AdyenCheckout({
+    const checkout = await AdyenCheckout({
         clientKey: clientKey, // Mandatory. clientKey from Customer Area
         environment: 'test',
-        amount: { currency: 'EUR', value: 1000 }, // amount to be shown next to the qrcode
+        amount: {
+            currency: 'EUR',
+            value: 1000
+        }, // amount to be shown next to the qrcode
         onAdditionalDetails: result => {
             console.log(result);
         },
