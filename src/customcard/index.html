@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adyen Checkout Components sample code</title>
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.9.0/adyen.css">
+    <link rel="stylesheet" href="../demo.css">
+    <link rel="stylesheet" href="customcards.style.css">
+</head>
+<body>
+<div class="container container--full-width">
+    <div class="main">
+        <div class="checkout-container">
+            <a href="../">Back</a>
+
+            <h1>Custom Card Component</h1>
+            <div class="payment-method">
+                <div id="card-container" class="payment-method__container">
+                    <span class="pm-image">
+                        <img
+                            class="pm-image-1"
+                            width="40"
+                            src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/logos/nocard.svg"
+                            alt=""
+                        />
+                    </span>
+                    <span class="pm-image-dual">
+                        <img
+                            class="pm-image-dual-1"
+                            width="40"
+                            alt=""
+                        />
+                        <img
+                            class="pm-image-dual-2"
+                            width="40"
+                            alt=""
+                        />
+                    </span>
+                    <label class="pm-form-label pm-form-label-pan">
+                        <span class="pm-form-label__text">Card number:</span>
+                        <span class="pm-input-field" data-cse="encryptedCardNumber"></span>
+                        <span class="pm-form-label__error-text">Please enter a valid credit card number</span>
+                    </label>
+                    <label class="pm-form-label pm-form-label--exp-month">
+                        <span class="pm-form-label__text">Expiry month:</span>
+                        <span class="pm-input-field" data-cse="encryptedExpiryMonth"></span>
+                        <span class="pm-form-label__error-text">Date error text</span>
+                    </label>
+                    <label class="pm-form-label pm-form-label--exp-year">
+                        <span class="pm-form-label__text">Expiry year:</span>
+                        <span class="pm-input-field" data-cse="encryptedExpiryYear"></span>
+                        <span class="pm-form-label__error-text">Date error text</span>
+                    </label>
+                    <label class="pm-form-label pm-form-label--cvc">
+                        <span class="pm-form-label__text">CVV/CVC:</span>
+                        <span class="pm-input-field" data-cse="encryptedSecurityCode"></span>
+                        <span class="pm-form-label__error-text">CVC Error text</span>
+                    </label>
+                </div>
+                <div class="card-input__spinner__holder">
+                    <div class="card-input__spinner card-input__spinner--active">
+                        <div class="adyen-checkout__spinner__wrapper ">
+                            <div class="adyen-checkout__spinner adyen-checkout__spinner--large"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <p>
+                Check the Source Code to see the full implementation.
+            </p>
+            <p>
+                To make a payment, use our <a href="https://docs.adyen.com/developers/development-resources/test-cards/test-card-numbers"
+                                              target="_blank">test card numbers</a>.
+            </p>
+            <p>
+                For more information, please refer to the <a href="https://docs.adyen.com/checkout/components-web/" target="_blank">Checkout
+                Components documentation</a>.
+            </p>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="header">
+            <h2>Basic Implementation</h2>
+            <button class="copy-sample-code" aria-label="Copy sample code"></button>
+        </div>
+        <pre class="source-code"><code>const checkout = await AdyenCheckout({
+    environment: 'test',
+    clientKey: 'test_...',
+    onChange: (state, component) => {
+        // state.data;
+        // state.isValid;
+    }
+});
+
+const card = checkout
+    .create('securedfields')
+    .mount('#card-container');</code></pre>
+
+        <div class="header">
+            <h2>Current state</h2>
+        </div>
+        <pre class="current-state">{}</pre>
+
+        <div class="request-container">
+            <div class="header">
+                <h2>Request</h2>
+            </div>
+            <p>The request to the <code>/payments</code> endpoint will be shown here.</p>
+            <pre class="request-code"></pre>
+        </div>
+
+        <div class="response-container">
+            <div class="header">
+                <h2>Response</h2>
+            </div>
+            <p>The response from the <code>/payments</code> endpoint will be shown here.</p>
+            <pre class="response-code"></pre>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.9.0/adyen.js"></script>
+<script src="../demo.js"></script>
+<script src="../utils.js"></script>
+<script type="module" src="/customcard/customCard.js"></script>
+</body>
+</html>
