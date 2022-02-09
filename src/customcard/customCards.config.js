@@ -91,8 +91,6 @@ export function onConfigSuccess(pCallbackObj) {
 export function setCCErrors(pCallbackObj) {
     if (!pCallbackObj.rootNode) return;
 
-//    console.log('### securedFields.config::setCCErrors:: pCallbackObj', pCallbackObj);
-
     const sfNode = pCallbackObj.rootNode.querySelector(`[data-cse="${pCallbackObj.fieldType}"]`);
     const errorNode = sfNode.parentNode.querySelector('.pm-form-label__error-text');
 
@@ -259,7 +257,7 @@ export function onBinLookup(pCallbackObj) {
     resetDualBranding(pCallbackObj.rootNode);
 }
 
-export function onChange(state, component) {
+export function onChangeV5(state, component) {
     // From v5 the onError handler is no longer only for card comp related errors
     // - so watch state.errors and use it to call the custom card specific 'setErrors' function
     if (!!Object.keys(state.errors).length) {
@@ -272,21 +270,14 @@ export function onChange(state, component) {
         errors.forEach(setCCErrors);
     }
 
+    onChange(state);
+}
+
+export function onChange(state) {
     /**
      * If we're in a dual branding scenario & the number field becomes valid or is valid and become invalid
      * - set the brand logos to the required 'state'
      */
-    if (isDualBranding) {
-        const mode = state.valid.encryptedCardNumber ? 'dualBranding_valid' : 'dualBranding_notValid';
-        setLogosActive(document.querySelector('#card-container'), mode);
-    }
-}
-
-export function onChangeV4(state, component) {
-    /**
-    * If we're in a dual branding scenario & the number field becomes valid or is valid and become invalid
-    * - set the brand logos to the required 'state'
-    */
     if (isDualBranding) {
         const mode = state.valid.encryptedCardNumber ? 'dualBranding_valid' : 'dualBranding_notValid';
         setLogosActive(document.querySelector('#card-container'), mode);
