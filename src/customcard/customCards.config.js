@@ -32,6 +32,7 @@ function setLogosActive(rootNode, mode) {
     }
 }
 
+// Can be imported by customCard and added to the config object used in checkout.create('securedfields')
 export const styles = {
     //    base: {
     //        caretColor: 'red'
