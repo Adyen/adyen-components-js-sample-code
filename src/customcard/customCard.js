@@ -3,7 +3,17 @@ import {setFocus, onBrand, onConfigSuccess, onBinLookup, setCCErrors, onChange, 
 /**
  * IMPORTANT - Set a boolean indicating whether index.html is loading a version of adyen.js (& adyen.css) >= 5.0.0
  */
-const IS_VERSION_5 = true;
+const IS_VERSION_5 = false;
+
+//const mockPaymentMethodsResponse = {
+//    paymentMethods: [
+//        {
+//            brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
+//            name: 'Credit Card',
+//            type: 'scheme'
+//        }
+//    ]
+//}
 
 // 0. Get clientKey
 getClientKey().then(async clientKey => {
@@ -11,7 +21,8 @@ getClientKey().then(async clientKey => {
     const configObj = {
         clientKey   : clientKey,
         environment : 'test',
-        locale      : "en-GB",
+        locale      : 'en-GB',
+//        paymentMethodsResponse: mockPaymentMethodsResponse
     }
 
     // 1. Create an instance of AdyenCheckout
@@ -23,7 +34,7 @@ getClientKey().then(async clientKey => {
 
     window.securedFields = checkout
         .create('securedfields', {
-            type    : 'card',
+            type: 'card',
             brands  : ['mc', 'visa', 'amex', 'bcmc', 'maestro', 'cartebancaire'],
             onConfigSuccess,
             onBrand,
