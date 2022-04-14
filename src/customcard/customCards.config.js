@@ -56,11 +56,14 @@ export function onConfigSuccess(pCallbackObj) {
      */
     document.querySelector('.card-input__spinner__holder').style.display = 'none';
 
-    pCallbackObj.rootNode.style.display = 'block';
+    // For <= v4.5.0 no rootNode prop was sent on the pCallbackObj
+    const rootNode = pCallbackObj.rootNode || document.getElementById('card-container');
 
-    pCallbackObj.rootNode.querySelector('.pm-image-dual').style.display = 'none';
+    rootNode.style.display = 'block';
 
-    setLogosActive(pCallbackObj.rootNode);
+    rootNode.querySelector('.pm-image-dual').style.display = 'none';
+
+    setLogosActive(rootNode);
 
     /**
      * Set focus on first element
