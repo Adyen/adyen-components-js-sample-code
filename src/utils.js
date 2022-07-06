@@ -74,6 +74,8 @@ const makePayment = (paymentMethod, config = {}) => {
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
 
+            alert(response.resultCode);
+
             updateResponseContainer(response);
 
             return response;
