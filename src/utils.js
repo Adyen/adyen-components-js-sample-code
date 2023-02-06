@@ -75,7 +75,22 @@ const makePayment = (paymentMethod, config = {}) => {
             if (response.error) throw 'Payment initiation failed';
 
             alert(response.resultCode);
+            updateResponseContainer(response);
 
+            return response;
+        })
+        .catch(console.error);
+};
+
+const handleAdditionalDetails = (details, component) => {
+
+    updateRequestContainer(details.data);
+
+    return httpPost('details', details.data)
+        .then(response => { ` `
+            if (response.error) throw 'Details call failed';
+
+            alert(response.resultCode);
             updateResponseContainer(response);
 
             return response;
