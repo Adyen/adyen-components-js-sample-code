@@ -1,5 +1,13 @@
+/**
+ * IMPORTANT - Set a boolean indicating whether index.html is loading a version of adyen.js (& adyen.css) >= 5.0.0
+ */
+const head = document.head.innerHTML;
+const version = head.substring(head.indexOf('sdk/') + 4, head.indexOf('/adyen'));
+const majorVn = Number(version.substring(0, version.indexOf('.')));
+const IS_VERSION_5 = majorVn >= 5;
+
 // 0. Get clientKey
-getClientKey().then(async clientKey => {
+Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
 
     // Optional, define custom placeholders for the Card fields
     // https://docs.adyen.com/online-payments/web-components/localization-components
@@ -10,21 +18,29 @@ getClientKey().then(async clientKey => {
     //     }
     // };
 
-    // 1. Create an instance of AdyenCheckout
-    const checkout = await AdyenCheckout({
+    const configObj = {
         environment: 'test',
         locale: "en-GB",
-        // Optional, define custom placeholders for the Card fields
-        // https://docs.adyen.com/online-payments/web-components/localization-components
         // translations: translations,
-        clientKey: clientKey // Mandatory. clientKey from Customer Area
-    });
+        clientKey: response[0],
+        paymentMethodsResponse: response[1]
+    }
+
+    // console.log('### card::paymentMethodsResponse:: ', response[1]);
+
+    // 1. Create an instance of AdyenCheckout
+    if (!IS_VERSION_5) {
+        window.checkout = new AdyenCheckout(configObj);
+    } else {
+        window.checkout = await AdyenCheckout(configObj);
+    }
 
     // 2. Create and mount the Component
-    const card = checkout
+    window.card = checkout
         .create('card', {
             // Optional Configuration
             // hasHolderName: true,
+            // holderNameRequired: true,
 
             // Optional. Customize the look and feel of the payment form
             // https://docs.adyen.com/developers/checkout/api-integration/configure-secured-fields/styling-secured-fields
@@ -36,7 +52,13 @@ getClientKey().then(async clientKey => {
             // Events
             onSubmit: (state, component) => {
                 if (state.isValid) {
-                    makePayment(card.data);
+                    const config = {additionalData: {allow3DS2: true}} // Allows regular, "in app", 3DS2
+
+                    makePayment(card.data, config).then(response => {
+                        if (response.action) {
+                            component.handleAction(response.action);
+                        }
+                    });
                 }
             },
 
@@ -45,7 +67,13 @@ getClientKey().then(async clientKey => {
                 // state.isValid;
 
                 updateStateContainer(state); // Demo purposes only
-            }
+            },
+
+            onAdditionalDetails: (details) => {
+                handleAdditionalDetails(details).then(response => {
+                    // console.log('### card::onAdditionalDetails:: response', response);
+                });
+            },
         })
         .mount('#card-container');
 });
