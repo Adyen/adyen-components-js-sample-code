@@ -4,7 +4,7 @@ function setReturnUrl(){
     if(window.location.pathname === '/sessions/') {
         return window.location.href
     } else {
-        return 'https://your-company.com/'
+        return window.location.href;//'https://your-company.com/'
     }
 }
 
@@ -54,8 +54,8 @@ const httpPost = (endpoint, data) =>
     }).then(response => response.json());
 
 // Get all available payment methods from the local server
-const getPaymentMethods = () =>
-    httpPost('paymentMethods', paymentMethodsConfig)
+const getPaymentMethods = (config = {}) =>
+    httpPost('paymentMethods', {...paymentMethodsConfig, ...config})
         .then(response => {
             if (response.error) throw 'No paymentMethods available';
 
@@ -131,3 +131,13 @@ const getClientKey = () =>
             return response.clientKey;
         })
         .catch(console.error);
+
+const getSearchParameters = (search = window.location.search) =>
+    search
+        .replace(/\?/g, '')
+        .split('&')
+        .reduce((acc, cur) => {
+            const [key, prop = ''] = cur.split('=');
+            acc[key] = decodeURIComponent(prop);
+            return acc;
+        }, {});

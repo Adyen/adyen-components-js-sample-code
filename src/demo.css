@@ -135,7 +135,7 @@ a:link:hover {
     height: 100vh;
 }
 
-@media (min-width: 780px) {
+@media (min-width: 400px) {
     .container {
         margin: auto;
     }
@@ -146,7 +146,7 @@ a:link:hover {
     max-width: 100vw;
 }
 
-@media (min-width: 780px) {
+@media (min-width: 400px) {
     .container--full-width {
         display: flex;
     }
@@ -159,7 +159,7 @@ a:link:hover {
     position: relative;
 }
 
-@media (min-width: 780px) {
+@media (min-width: 400px) {
     .main {
         padding: 18px 60px;
         width: 60%;
@@ -173,7 +173,7 @@ a:link:hover {
     overflow-y: auto;
 }
 
-@media (min-width: 780px) {
+@media (min-width: 400px) {
     .sidebar {
         width: 40%;
     }

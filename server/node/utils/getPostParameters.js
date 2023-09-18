@@ -6,6 +6,8 @@ module.exports = (endpoint, request) => {
         ...request
     });
 
+    console.log('### getPostParameters::exports:: CHECKOUT_URL=', CHECKOUT_URL);
+
     return {
         body,
         url: `${CHECKOUT_URL}/${endpoint}`,
