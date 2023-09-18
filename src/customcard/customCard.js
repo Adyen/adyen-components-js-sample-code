@@ -3,17 +3,20 @@ import {setFocus, onBrand, onConfigSuccess, onBinLookup, setCCErrors, onChange, 
 /**
  * IMPORTANT - Set a boolean indicating whether index.html is loading a version of adyen.js (& adyen.css) >= 5.0.0
  */
-const IS_VERSION_5 = false;
+const head = document.head.innerHTML;
+const version = head.substring(head.indexOf('sdk/') + 4, head.indexOf('/adyen'));
+const majorVn = Number(version.substring(0, version.indexOf('.')));
+const IS_VERSION_5 = majorVn >= 5;
 
-//const mockPaymentMethodsResponse = {
-//    paymentMethods: [
-//        {
-//            brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
-//            name: 'Credit Card',
-//            type: 'scheme'
-//        }
-//    ]
-//}
+const mockPaymentMethodsResponse = {
+    paymentMethods: [
+        {
+            brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
+            name: 'Credit Card',
+            type: 'scheme'
+        }
+    ]
+}
 
 // 0. Get clientKey
 getClientKey().then(async clientKey => {
@@ -22,7 +25,7 @@ getClientKey().then(async clientKey => {
         clientKey   : clientKey,
         environment : 'test',
         locale      : 'en-GB',
-//        paymentMethodsResponse: mockPaymentMethodsResponse
+        paymentMethodsResponse: mockPaymentMethodsResponse
     }
 
     // 1. Create an instance of AdyenCheckout
@@ -32,10 +35,12 @@ getClientKey().then(async clientKey => {
         window.checkout = await AdyenCheckout(configObj);
     }
 
+    console.log('### customCard::checkout:: ',checkout );
+
     window.securedFields = checkout
         .create('securedfields', {
             type: 'card',
-            brands  : ['mc', 'visa', 'amex', 'bcmc', 'maestro', 'cartebancaire'],
+            brands  : ['mc', 'visa', 'maestro'],
             onConfigSuccess,
             onBrand,
             onFocus : setFocus,
@@ -91,14 +96,7 @@ getClientKey().then(async clientKey => {
                 return component.showValidation();
             }
 
-            // formatData
-            const paymentMethod = {
-                type : 'scheme',
-                ...component.state.data
-            };
-            component.state.data = {paymentMethod};
-
-            makePayment(component.state.data);
+            makePayment(component.formatData());
 
             payBtn.style.opacity = '0.5';
         });
