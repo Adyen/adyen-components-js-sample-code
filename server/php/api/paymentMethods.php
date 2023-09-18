@@ -21,12 +21,7 @@ function getPaymentMethods() {
     $url = "https://checkout-test.adyen.com/v68/paymentMethods";
 
     $data = [
-        'merchantAccount' => $merchantAccount,
-        'countryCode' => 'NL',
-        'amount' => [
-            'currency' => 'EUR',
-            'value' => 1000
-        ]
+        'merchantAccount' => $merchantAccount
     ];
 
     // Convert data to JSON
