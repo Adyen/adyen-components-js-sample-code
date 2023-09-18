@@ -1,3 +1,28 @@
+
+/**
+ * Handling redirect results
+ */
+function handleRedirectResult() {
+    const { redirectResult } = getSearchParameters(window.location.search);
+
+    console.log('### card::handleRedirectResult:: redirectResult', redirectResult);
+
+    if (redirectResult) {
+        // Makes call to /payments/details
+        return handleAdditionalDetails({
+            data: {
+                details: {
+                    redirectResult
+                }
+            }
+        })
+    }
+
+    return false;
+}
+
+handleRedirectResult();
+
 /**
  * IMPORTANT - Set a boolean indicating whether index.html is loading a version of adyen.js (& adyen.css) >= 5.0.0
  */
@@ -18,45 +43,126 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
     //     }
     // };
 
+
+    /**
+     * NOTE: earliest version I can get working is 2.1.0 (but prior to 3.1.0 components had no option to show a pay button - so I don't know if I can pay)
+     * 3.1.0 works & I can pay
+     */
     const configObj = {
         environment: 'test',
         locale: "en-GB",
         // translations: translations,
         clientKey: response[0],
-        paymentMethodsResponse: response[1]
+        paymentMethodsResponse: response[1],
+        onError: (e)=>{
+            console.log('### Checkout config onError:: e=', e);
+        },
+        // translations: {
+        //     'en-GB': {
+        //         'creditCard.encryptedCardNumber.aria.iframeTitle': 'pan iframe',
+        //         'creditCard.encryptedCardNumber.aria.label': 'number label',
+        //         "creditCard.holderName.placeholder": "Bill Bob",
+        //         'creditCard.numberField.placeholder': 'enter pan',
+        //         'creditCard.expiryDateField.placeholder': 'month & year'
+        //     }
+        // }
+        /**
+         * Needed to make adyen.js vn <= 3.10.0 work
+         * For anything < 3.9.0 it has to be a genuine originKey (published for TestCompany against localhost:3000)
+         */
+        // originKey: 'pub.v2.8115658705713940.aHR0cDovL2xvY2FsaG9zdDozMDAw.cpyWd9ZhlTyrKVQRp34kMJZjIFMcPvP3B5UhgAdhDjc',
+        /**
+         * Needed to mark adyen.js vn <= 2.4.0 work
+         */
+        // loadingContext: 'https://checkoutshopper-test.adyen.com/checkoutshopper/'
     }
 
-    // console.log('### card::paymentMethodsResponse:: ', response[1]);
+    console.log('### card::paymentMethodsResponse:: ', response[1]);
+
+    const isUMD = Array.from(document.scripts).reduce((acc, script) => {
+        if(!acc && script.src.includes('adyen.js')){
+            acc = true;
+        }
+        return acc
+    }, false);
+    console.log('### card:::: isUMD=', isUMD);
 
     // 1. Create an instance of AdyenCheckout
     if (!IS_VERSION_5) {
         window.checkout = new AdyenCheckout(configObj);
     } else {
         window.checkout = await AdyenCheckout(configObj);
+
+        // requirejs(["https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.28.0/adyen.js"], function(adyenCheckout) {
+        //     adyenCheckout(configObj).then((checkout)=> {
+        //         window.checkout = checkout;
+        //         console.log('### card:::: checkout', checkout);
+        //         // window.dropin = checkout.create('dropin', {...
+        //     });
+        // });
     }
+
+    // if (checkout.paymentMethodsResponse.storedPaymentMethods && checkout.paymentMethodsResponse.storedPaymentMethods.length > 0) {
+    //     const storedCardData = checkout.paymentMethodsResponse.storedPaymentMethods[0];
+    //     console.log('### Cards:::: storedCardData', storedCardData);
+    //     window.storedCard = checkout.create('card', storedCardData).mount('#card-container');
+    // }
+    // return;
+
+    // Array.from(document.scripts).forEach((script) => {
+    //     if(script.src.includes('adyen.js')){
+    //         console.log('### card:::: UMD MF!', );
+    //     }
+    // })
 
     // 2. Create and mount the Component
     window.card = checkout
         .create('card', {
             // Optional Configuration
-            // hasHolderName: true,
-            // holderNameRequired: true,
+            hasHolderName: true,
+            holderNameRequired: true,
 
             // Optional. Customize the look and feel of the payment form
             // https://docs.adyen.com/developers/checkout/api-integration/configure-secured-fields/styling-secured-fields
             styles: {},
 
+           // brands:['mc', 'visa', 'cartebancaire'],
+           // brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
+
             // Optionally show a Pay Button
             showPayButton: true,
+            enableStoreDetails: true,
+
+            _disableClickToPay: true,
+
+            placeholders: {
+                holderName: 'ph billy bob',
+                encryptedCardNumber: 'ph enter PAN'
+            },
+
+            // billingAddressRequired: true,
 
             // Events
             onSubmit: (state, component) => {
                 if (state.isValid) {
-                    const config = {additionalData: {allow3DS2: true}} // Allows regular, "in app", 3DS2
 
-                    makePayment(card.data, config).then(response => {
+                    // const config = {};
+                    const config = {
+                        additionalData: {allow3DS2: true}, // allows regular, "in app", 3DS2
+                        origin:"http://localhost:3000" // forces v4.3.1 to use the native 3DS Comp (and avoid a "redirect" response)
+                    }
+                    // const config = {additionalData: {executeThreeD: true}} // forces 3DS2 into MDFlow redirect
+
+                    const cardData = {...card.data}
+                    // cardData.browserInfo.screenWidth = 437663051;
+                    // cardData.browserInfo.screenHeight = 1168348283;
+
+                    console.log('### card::onSubmit::cardData ', cardData);
+
+                    makePayment(cardData, config).then(response => {
                         if (response.action) {
                             component.handleAction(response.action);
+                            console.log('### handlers::handleResponse::response.action=', response.action);
                         }
                     });
                 }
@@ -70,10 +176,14 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
             },
 
             onAdditionalDetails: (details) => {
+                console.log('### card::onAdditionalDetails:: calling' );
                 handleAdditionalDetails(details).then(response => {
-                    // console.log('### card::onAdditionalDetails:: response', response);
+                    console.log('### card::onAdditionalDetails:: response', response);
                 });
             },
+            onError: (e)=>{
+                console.log('### Card config::onError:: e=', e);
+            }
         })
         .mount('#card-container');
 });
