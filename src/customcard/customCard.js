@@ -24,8 +24,13 @@ getClientKey().then(async clientKey => {
     const configObj = {
         clientKey   : clientKey,
         environment : 'test',
-        locale      : 'en-GB',
-        paymentMethodsResponse: mockPaymentMethodsResponse
+        locale      : 'en-US',
+        paymentMethodsResponse: mockPaymentMethodsResponse,
+        translations: {
+            'en-US': {
+               'creditCard.encryptedCardNumber.aria.label': 'number label',
+            }
+        }
     }
 
     // 1. Create an instance of AdyenCheckout
