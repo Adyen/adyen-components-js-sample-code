@@ -3,7 +3,7 @@ import {setFocus, onBrand, onConfigSuccess, onBinLookup, setCCErrors, onChange, 
 /**
  * IMPORTANT - Set a boolean indicating whether index.html is loading a version of adyen.js (& adyen.css) >= 5.0.0
  */
-const IS_VERSION_5 = false;
+const IS_VERSION_5 = true;
 
 //const mockPaymentMethodsResponse = {
 //    paymentMethods: [
