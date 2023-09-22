@@ -3,7 +3,10 @@ import {setFocus, onBrand, onConfigSuccess, onBinLookup, setCCErrors, onChange, 
 /**
  * IMPORTANT - Set a boolean indicating whether index.html is loading a version of adyen.js (& adyen.css) >= 5.0.0
  */
-const IS_VERSION_5 = true;
+const head = document.head.innerHTML;
+const version = head.substring(head.indexOf('sdk/') + 4, head.indexOf('/adyen'));
+const majorVn = Number(version.substring(0, version.indexOf('.')));
+const IS_VERSION_5 = majorVn >= 5;
 
 //const mockPaymentMethodsResponse = {
 //    paymentMethods: [
