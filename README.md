@@ -57,7 +57,7 @@ After deploying, to use Sessions Drop-in, add your ```CLIENT_KEY``` to the confi
 
 ## Documentation
 
-For the complete integration guide, refer to the [Web Components documentation](https://docs.adyen.com/checkout/components-web/).
+For the complete integration guide, refer to the [Web Components documentation](https://docs.adyen.com/online-payments/web-components).
 
 ## Other sample projects
 
