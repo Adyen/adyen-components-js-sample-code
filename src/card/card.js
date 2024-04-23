@@ -57,6 +57,16 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
         onError: (e)=>{
             console.log('### Checkout config onError:: e=', e);
         },
+        srConfig: {
+            moveFocus: false,
+            showPanel: true,
+            node: '.sr-panel'
+        },
+        // paymentMethodsConfiguration:{
+        //     card:{
+        //         challengeWindowSize: '05'
+        //     }
+        // }
         // translations: {
         //     'en-GB': {
         //         'creditCard.encryptedCardNumber.aria.iframeTitle': 'pan iframe',
@@ -75,6 +85,7 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
          * Needed to mark adyen.js vn <= 2.4.0 work
          */
         // loadingContext: 'https://checkoutshopper-test.adyen.com/checkoutshopper/'
+        // useOriginalFlow: true
     }
 
     console.log('### card::paymentMethodsResponse:: ', response[1]);
@@ -114,13 +125,13 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
     //         console.log('### card:::: UMD MF!', );
     //     }
     // })
-
+    
     // 2. Create and mount the Component
     window.card = checkout
         .create('card', {
             // Optional Configuration
-            hasHolderName: true,
-            holderNameRequired: true,
+            // hasHolderName: true,
+            // holderNameRequired: true,
 
             // Optional. Customize the look and feel of the payment form
             // https://docs.adyen.com/developers/checkout/api-integration/configure-secured-fields/styling-secured-fields
@@ -139,6 +150,15 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
                 holderName: 'ph billy bob',
                 encryptedCardNumber: 'ph enter PAN'
             },
+
+            styles: {
+                base: {
+                    // Setting font
+                    fontFamily: 'https://fonts.gstatic.com/s/montserrat/v26/JTUQjIg1_i6t8kCHKm459WxRyS7m0dR9pA.woff2'
+                }
+            },
+
+            // challengeWindowSize: '01',
 
             // billingAddressRequired: true,
 
@@ -162,6 +182,7 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
                     makePayment(cardData, config).then(response => {
                         if (response.action) {
                             component.handleAction(response.action);
+                            // checkout.createFromAction(response.action, { challengeWindowSize: '01' }).mount('#card-container')
                             console.log('### handlers::handleResponse::response.action=', response.action);
                         }
                     });
@@ -175,15 +196,43 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
                 updateStateContainer(state); // Demo purposes only
             },
 
-            onAdditionalDetails: (details) => {
-                console.log('### card::onAdditionalDetails:: calling' );
-                handleAdditionalDetails(details).then(response => {
-                    console.log('### card::onAdditionalDetails:: response', response);
-                });
+            onComplete: obj => {
+                console.log('### card::onComplete:: obj', obj);
             },
+
+            // onAdditionalDetails: (details) => {
+            //     console.log('### card::onAdditionalDetails:: calling' );
+            //     handleAdditionalDetails(details).then(response => {
+            //         console.log('### card::onAdditionalDetails:: response', response);
+            //     });
+            // },
             onError: (e)=>{
                 console.log('### Card config::onError:: e=', e);
-            }
+            },
+            onBinLookup: (obj)=>{
+                console.log('### Card config::onBinLookup:: obj=', obj);
+            },
+            onFocus: (obj) => {
+                console.log('### Cards::onFocus:: obj',obj);
+            },
+            onBlur: (obj) => {
+                console.log('### Cards::onBlur:: obj',obj);
+            },
+            // configuration: {
+            //     socialSecurityNumberMode: 'show'
+            // }
+            // installmentOptions: {
+            //     mc: {
+            //         values: [1, 2],
+            //         preselectedValue: 2
+            //     },
+            //     visa: {
+            //         values: [1, 2, 3, 4],
+            //         plans: ['regular', 'revolving'],
+            //         preselectedValue: 4
+            //     }
+            // },
+            setStatusAutomatically: false
         })
         .mount('#card-container');
 });
