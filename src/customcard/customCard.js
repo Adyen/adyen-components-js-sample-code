@@ -29,6 +29,10 @@ getClientKey().then(async clientKey => {
         translations: {
             'en-US': {
                'creditCard.encryptedCardNumber.aria.label': 'number label',
+                'error.va.gen.01': 'fill out the field',
+                'error.va.sf-cc-yr.01': 'year is wrong',
+                'error.va.sf-cc-yr.02': 'year is wrong too',
+                'error.va.sf-cc-dat.01': 'card is very old'
             }
         }
     }

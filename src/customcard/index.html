@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Adyen Checkout Components sample code</title>
-    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.33.0/adyen.css">
+    <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.51.0/adyen.css">
     <link rel="stylesheet" href="../demo.css">
     <link rel="stylesheet" href="./customcards.style.css">
 </head>
@@ -51,7 +51,7 @@
                     <label class="pm-form-label pm-form-label--exp-year">
                         <span class="pm-form-label__text">Expiry year:</span>
                         <span class="pm-input-field" data-cse="encryptedExpiryYear" data-uid="adyen-checkout-encryptedExpiryYear-3"></span>
-                        <span class="pm-form-label__error-text">Date error text</span>
+                        <span class="pm-form-label__error-text" aria-hidden="true">Date error text</span>
                     </label>
                     <label class="pm-form-label pm-form-label--cvc">
                         <span class="pm-form-label__text">CVV/CVC:</span>
@@ -125,7 +125,7 @@ const customCard = checkout
     </div>
 </div>
 
-<script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.33.0/adyen.js"></script>
+<script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.51.0/adyen.js"></script>
 <script src="../demo.js"></script>
 <script src="../utils.js"></script>
 <script type="module" src="./customCard.js"></script>
