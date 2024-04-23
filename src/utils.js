@@ -1,7 +1,7 @@
 // Function to set returnUrl, for standard Drop-in and Components, return to placeholder,
 // else redirect back to sessions where we handle the redirectResult
-function setReturnUrl(){
-    if(window.location.pathname === '/sessions/') {
+function setReturnUrl() {
+    if (window.location.pathname === '/sessions/') {
         return window.location.href
     } else {
         return window.location.href;//'https://your-company.com/'
@@ -65,8 +65,8 @@ const getPaymentMethods = (config = {}) =>
 
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
-    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
-    const paymentRequest = { ...paymentsConfig, ...paymentMethod };
+    const paymentsConfig = {...paymentsDefaultConfig, ...config};
+    const paymentRequest = {...paymentsConfig, ...paymentMethod};
 
     updateRequestContainer(paymentRequest);
 
@@ -87,7 +87,7 @@ const handleAdditionalDetails = (details, component) => {
     updateRequestContainer(details.data);
 
     return httpPost('details', details.data)
-        .then(response => { ` `
+        .then(response => {
             if (response.error) throw 'Details call failed';
 
             alert(response.resultCode);
@@ -100,8 +100,8 @@ const handleAdditionalDetails = (details, component) => {
 
 // Posts a new payment into the local server
 const sessions = (paymentMethod, config = {}) => {
-    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
-    const sessionRequest = { ...paymentsConfig, ...paymentMethod };
+    const paymentsConfig = {...paymentsDefaultConfig, ...config};
+    const sessionRequest = {...paymentsConfig, ...paymentMethod};
 
     return httpPost('sessions', sessionRequest)
         .then(response => {
