@@ -59,7 +59,7 @@ function setupPayment($merchantAccount)
         'countryCode' => 'NL',
         'shopperLocale' => 'NL',
         'merchantAccount' => $merchantAccount,
-        'returnUrl' => 'http://localhost:3000/paymentSuccess.php',
+        'returnUrl' => 'http://localhost:4000/paymentSuccess.php',
         'reference' => 'Checkout php ' . $_ENV['LOGNAME'] . ' ' . date('YmdHi'),
         'sessionValidity' => date('Y-m-d\TH:i:s\Z', strtotime('+2 days')),
         'channel' => 'Web',
@@ -77,7 +77,7 @@ function setupPayment($merchantAccount)
 //        $setupRequest['origin'] = 'https://' . $_SERVER['HTTP_HOST'];
 //    }
 
-    $setupRequest['origin'] = 'http://localhost:3000';
+    $setupRequest['origin'] = 'http://localhost:4000';
 
 
     $setupString = json_encode($setupRequest);
