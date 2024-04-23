@@ -43,11 +43,6 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
     //     }
     // };
 
-
-    /**
-     * NOTE: earliest version I can get working is 2.1.0 (but prior to 3.1.0 components had no option to show a pay button - so I don't know if I can pay)
-     * 3.1.0 works & I can pay
-     */
     const configObj = {
         environment: 'test',
         locale: "en-GB",
@@ -58,18 +53,11 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
         onSubmit: (state, component) => {
             if (state.isValid) {
 
-                // const config = {};
                 const config = {
                     additionalData: {allow3DS2: true}, // allows regular, "in app", 3DS2
-                    origin:"http://localhost:3000" // forces v4.3.1 to use the native 3DS Comp (and avoid a "redirect" response)
                 }
-                // const config = {additionalData: {executeThreeD: true}} // forces 3DS2 into MDFlow redirect
 
                 const cardData = {...card.data}
-                // cardData.browserInfo.screenWidth = 437663051;
-                // cardData.browserInfo.screenHeight = 1168348283;
-
-                console.log('### card::onSubmit::cardData ', cardData);
 
                 makePayment(cardData, config).then(response => {
                     if (response.action) {
@@ -96,76 +84,16 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
 
         onError: (e)=>{
             console.log('### Checkout config onError:: e=', e);
-        },
-        srConfig: {
-            moveFocus: false,
-            showPanel: true,
-            // node: '.sr-panel' // Add SRPanel to another element than the default
-        },
-        // paymentMethodsConfiguration:{
-        //     card:{
-        //         challengeWindowSize: '05'
-        //     }
-        // }
-        // translations: {
-        //     'en-GB': {
-        //         'creditCard.encryptedCardNumber.aria.iframeTitle': 'pan iframe',
-        //         'creditCard.encryptedCardNumber.aria.label': 'number label',
-        //         "creditCard.holderName.placeholder": "Bill Bob",
-        //         'creditCard.numberField.placeholder': 'enter pan',
-        //         'creditCard.expiryDateField.placeholder': 'month & year'
-        //     }
-        // }
-        /**
-         * Needed to make adyen.js vn <= 3.10.0 work
-         * For anything < 3.9.0 it has to be a genuine originKey (published for TestCompany against localhost:3000)
-         */
-        // originKey: 'pub.v2.8115658705713940.aHR0cDovL2xvY2FsaG9zdDozMDAw.cpyWd9ZhlTyrKVQRp34kMJZjIFMcPvP3B5UhgAdhDjc',
-        /**
-         * Needed to mark adyen.js vn <= 2.4.0 work
-         */
-        // loadingContext: 'https://checkoutshopper-test.adyen.com/checkoutshopper/'
-        // useOriginalFlow: true
-    }
-
-    console.log('### card::paymentMethodsResponse:: ', response[1]);
-
-    const isUMD = Array.from(document.scripts).reduce((acc, script) => {
-        if(!acc && script.src.includes('adyen.js')){
-            acc = true;
         }
-        return acc
-    }, false);
-    console.log('### card:::: isUMD=', isUMD);
+    }
 
     // 1. Create an instance of AdyenCheckout
     if (!IS_VERSION_5) {
         window.checkout = new AdyenCheckout(configObj);
     } else {
         window.checkout = await AdyenCheckout(configObj);
-
-        // requirejs(["https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/5.28.0/adyen.js"], function(adyenCheckout) {
-        //     adyenCheckout(configObj).then((checkout)=> {
-        //         window.checkout = checkout;
-        //         console.log('### card:::: checkout', checkout);
-        //         // window.dropin = checkout.create('dropin', {...
-        //     });
-        // });
     }
 
-    // if (checkout.paymentMethodsResponse.storedPaymentMethods && checkout.paymentMethodsResponse.storedPaymentMethods.length > 0) {
-    //     const storedCardData = checkout.paymentMethodsResponse.storedPaymentMethods[0];
-    //     console.log('### Cards:::: storedCardData', storedCardData);
-    //     window.storedCard = checkout.create('card', storedCardData).mount('#card-container');
-    // }
-    // return;
-
-    // Array.from(document.scripts).forEach((script) => {
-    //     if(script.src.includes('adyen.js')){
-    //         console.log('### card:::: UMD MF!', );
-    //     }
-    // })
-    
     // 2. Create and mount the Component
     window.card = checkout
         .create('card', {
@@ -177,35 +105,12 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
             // https://docs.adyen.com/developers/checkout/api-integration/configure-secured-fields/styling-secured-fields
             styles: {},
 
-           // brands:['mc', 'visa', 'cartebancaire'],
-           // brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
-
             // Optionally show a Pay Button
             showPayButton: true,
             enableStoreDetails: true,
 
             _disableClickToPay: true,
 
-            placeholders: {
-                holderName: 'ph billy bob',
-                encryptedCardNumber: 'ph enter PAN'
-            },
-
-            styles: {
-                base: {
-                    // Setting font
-                    fontFamily: 'https://fonts.gstatic.com/s/montserrat/v26/JTUQjIg1_i6t8kCHKm459WxRyS7m0dR9pA.woff2'
-                }
-            },
-
-            // challengeWindowSize: '01',
-
-            // billingAddressRequired: true,
-
-
-            // onError: (e)=>{
-            //     console.log('### Card config::onError:: e=', e);
-            // },
             onBinLookup: (obj)=>{
                 console.log('### Card config::onBinLookup:: obj=', obj);
             },
@@ -214,22 +119,7 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
             },
             onBlur: (obj) => {
                 console.log('### Cards::onBlur:: obj',obj);
-            },
-            // configuration: {
-            //     socialSecurityNumberMode: 'show'
-            // }
-            // installmentOptions: {
-            //     mc: {
-            //         values: [1, 2],
-            //         preselectedValue: 2
-            //     },
-            //     visa: {
-            //         values: [1, 2, 3, 4],
-            //         plans: ['regular', 'revolving'],
-            //         preselectedValue: 4
-            //     }
-            // },
-            setStatusAutomatically: false
+            }
         })
         .mount('#card-container');
 });

@@ -55,7 +55,7 @@ const httpPost = (endpoint, data) =>
 
 // Get all available payment methods from the local server
 const getPaymentMethods = (config = {}) =>
-    httpPost('paymentMethods', {...paymentMethodsConfig, ...config})
+    httpPost('paymentMethods', { ...paymentMethodsConfig, ...config })
         .then(response => {
             if (response.error) throw 'No paymentMethods available';
 
@@ -65,8 +65,8 @@ const getPaymentMethods = (config = {}) =>
 
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
-    const paymentsConfig = {...paymentsDefaultConfig, ...config};
-    const paymentRequest = {...paymentsConfig, ...paymentMethod};
+    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
+    const paymentRequest = { ...paymentsConfig, ...paymentMethod };
 
     updateRequestContainer(paymentRequest);
 
@@ -100,8 +100,8 @@ const handleAdditionalDetails = (details, component) => {
 
 // Posts a new payment into the local server
 const sessions = (paymentMethod, config = {}) => {
-    const paymentsConfig = {...paymentsDefaultConfig, ...config};
-    const sessionRequest = {...paymentsConfig, ...paymentMethod};
+    const paymentsConfig = { ...paymentsDefaultConfig, ...config };
+    const sessionRequest = { ...paymentsConfig, ...paymentMethod };
 
     return httpPost('sessions', sessionRequest)
         .then(response => {

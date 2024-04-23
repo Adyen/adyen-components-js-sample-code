@@ -8,15 +8,15 @@ const version = head.substring(head.indexOf('sdk/') + 4, head.indexOf('/adyen'))
 const majorVn = Number(version.substring(0, version.indexOf('.')));
 const IS_VERSION_5 = majorVn >= 5;
 
-const mockPaymentMethodsResponse = {
-    paymentMethods: [
-        {
-            brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
-            name: 'Credit Card',
-            type: 'scheme'
-        }
-    ]
-}
+//const mockPaymentMethodsResponse = {
+//    paymentMethods: [
+//        {
+//            brands: ['mc', 'visa', 'amex', 'maestro', 'cup', 'diners', 'discover', 'jcb', 'bijcard'],
+//            name: 'Credit Card',
+//            type: 'scheme'
+//        }
+//    ]
+//}
 
 // 0. Get clientKey
 getClientKey().then(async clientKey => {
@@ -25,16 +25,7 @@ getClientKey().then(async clientKey => {
         clientKey   : clientKey,
         environment : 'test',
         locale      : 'en-US',
-        paymentMethodsResponse: mockPaymentMethodsResponse,
-        translations: {
-            'en-US': {
-               'creditCard.encryptedCardNumber.aria.label': 'number label',
-                'error.va.gen.01': 'fill out the field',
-                'error.va.sf-cc-yr.01': 'year is wrong',
-                'error.va.sf-cc-yr.02': 'year is wrong too',
-                'error.va.sf-cc-dat.01': 'card is very old'
-            }
-        }
+//        paymentMethodsResponse: mockPaymentMethodsResponse
     }
 
     // 1. Create an instance of AdyenCheckout
@@ -44,12 +35,10 @@ getClientKey().then(async clientKey => {
         window.checkout = await AdyenCheckout(configObj);
     }
 
-    console.log('### customCard::checkout:: ',checkout );
-
     window.securedFields = checkout
         .create('securedfields', {
             type: 'card',
-            brands  : ['mc', 'visa', 'maestro'],
+            brands  : ['mc', 'visa', 'amex', 'bcmc', 'maestro', 'cartebancaire'],
             onConfigSuccess,
             onBrand,
             onFocus : setFocus,

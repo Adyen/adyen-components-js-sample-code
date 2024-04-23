@@ -101,13 +101,6 @@ export function setCCErrors(pCallbackObj) {
     if (errorNode.innerText === '' && pCallbackObj.error === '') return;
 
     if (pCallbackObj.error !== '') {
-
-        // TODO - test, set focus on first field in error and see that screen reader reads out the applicable error... is what happens
-        // if(pCallbackObj.fieldType === 'encryptedCardNumber'){
-        //     window.securedFields.setFocusOn('encryptedCardNumber')
-        // }
-        // TODO - end test
-
         errorNode.style.display = 'block';
         errorNode.innerText = pCallbackObj.errorI18n;
 
