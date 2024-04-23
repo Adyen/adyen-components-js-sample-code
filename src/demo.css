@@ -274,14 +274,9 @@ pre {
     padding: 0px 10px;
 }
 
-/* Alternative styling to make SRPanel visible */
+/* Styling to make SRPanel visible */
 .adyen-checkout-sr-panel--sr-only {
     clip: unset;
-    border: 0;
     height: 200px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
     width: 500px;
 }

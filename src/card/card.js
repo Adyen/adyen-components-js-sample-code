@@ -60,7 +60,7 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
         srConfig: {
             moveFocus: false,
             showPanel: true,
-            node: '.sr-panel'
+            // node: '.sr-panel' // Add SRPanel to another element than the default
         },
         // paymentMethodsConfiguration:{
         //     card:{
