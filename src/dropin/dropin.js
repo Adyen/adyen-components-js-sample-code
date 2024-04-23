@@ -34,9 +34,10 @@ getClientKey().then(clientKey => {
             environment: 'test',
             clientKey: clientKey, // Mandatory. clientKey from Customer Area
             paymentMethodsResponse,
+            // locale: "nl-NL",
             // removePaymentMethods: ['paysafecard', 'c_cash'],
             // allowPaymentMethods: ['scheme', 'ideal'],
-            allowPaymentMethods: allowedPMS,
+            // allowPaymentMethods: allowedPMS,
             onChange: state => {
                 updateStateContainer(state); // Demo purposes only
             },
@@ -47,8 +48,8 @@ getClientKey().then(clientKey => {
             },
             paymentMethodsConfiguration: {
                 card: {
-                    brands: ['mc', 'visa', 'amex'],
-                    billingAddressRequired: true,
+                    brands: ['mc', 'visa', 'amex']
+                    // billingAddressRequired: true,
                     // data: {
                     //     billingAddress: {
                     //         postalCode: '1234AA',
@@ -58,6 +59,7 @@ getClientKey().then(clientKey => {
                 }
             },
             countryCode: 'NL',
+            // setStatusAutomatically: false
         };
 
         // 1. Create an instance of AdyenCheckout
