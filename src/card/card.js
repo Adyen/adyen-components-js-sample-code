@@ -87,11 +87,6 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
 
             updateStateContainer(state); // Demo purposes only
         },
-
-        // onComplete: obj => {
-        //     console.log('### card::onComplete:: obj', obj);
-        // },
-
         onAdditionalDetails: (details) => {
             console.log('### card::onAdditionalDetails:: calling' );
             handleAdditionalDetails(details).then(response => {
