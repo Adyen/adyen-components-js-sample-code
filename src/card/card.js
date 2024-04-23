@@ -54,6 +54,51 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
         // translations: translations,
         clientKey: response[0],
         paymentMethodsResponse: response[1],
+        // Events
+        onSubmit: (state, component) => {
+            if (state.isValid) {
+
+                // const config = {};
+                const config = {
+                    additionalData: {allow3DS2: true}, // allows regular, "in app", 3DS2
+                    origin:"http://localhost:3000" // forces v4.3.1 to use the native 3DS Comp (and avoid a "redirect" response)
+                }
+                // const config = {additionalData: {executeThreeD: true}} // forces 3DS2 into MDFlow redirect
+
+                const cardData = {...card.data}
+                // cardData.browserInfo.screenWidth = 437663051;
+                // cardData.browserInfo.screenHeight = 1168348283;
+
+                console.log('### card::onSubmit::cardData ', cardData);
+
+                makePayment(cardData, config).then(response => {
+                    if (response.action) {
+                        component.handleAction(response.action);
+                        // checkout.createFromAction(response.action, { challengeWindowSize: '01' }).mount('#card-container')
+                        console.log('### handlers::handleResponse::response.action=', response.action);
+                    }
+                });
+            }
+        },
+
+        onChange: (state, component) => {
+            // state.data;
+            // state.isValid;
+
+            updateStateContainer(state); // Demo purposes only
+        },
+
+        // onComplete: obj => {
+        //     console.log('### card::onComplete:: obj', obj);
+        // },
+
+        onAdditionalDetails: (details) => {
+            console.log('### card::onAdditionalDetails:: calling' );
+            handleAdditionalDetails(details).then(response => {
+                console.log('### card::onAdditionalDetails:: response', response);
+            });
+        },
+
         onError: (e)=>{
             console.log('### Checkout config onError:: e=', e);
         },
@@ -162,53 +207,10 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
 
             // billingAddressRequired: true,
 
-            // Events
-            onSubmit: (state, component) => {
-                if (state.isValid) {
 
-                    // const config = {};
-                    const config = {
-                        additionalData: {allow3DS2: true}, // allows regular, "in app", 3DS2
-                        origin:"http://localhost:3000" // forces v4.3.1 to use the native 3DS Comp (and avoid a "redirect" response)
-                    }
-                    // const config = {additionalData: {executeThreeD: true}} // forces 3DS2 into MDFlow redirect
-
-                    const cardData = {...card.data}
-                    // cardData.browserInfo.screenWidth = 437663051;
-                    // cardData.browserInfo.screenHeight = 1168348283;
-
-                    console.log('### card::onSubmit::cardData ', cardData);
-
-                    makePayment(cardData, config).then(response => {
-                        if (response.action) {
-                            component.handleAction(response.action);
-                            // checkout.createFromAction(response.action, { challengeWindowSize: '01' }).mount('#card-container')
-                            console.log('### handlers::handleResponse::response.action=', response.action);
-                        }
-                    });
-                }
-            },
-
-            onChange: (state, component) => {
-                // state.data;
-                // state.isValid;
-
-                updateStateContainer(state); // Demo purposes only
-            },
-
-            onComplete: obj => {
-                console.log('### card::onComplete:: obj', obj);
-            },
-
-            // onAdditionalDetails: (details) => {
-            //     console.log('### card::onAdditionalDetails:: calling' );
-            //     handleAdditionalDetails(details).then(response => {
-            //         console.log('### card::onAdditionalDetails:: response', response);
-            //     });
+            // onError: (e)=>{
+            //     console.log('### Card config::onError:: e=', e);
             // },
-            onError: (e)=>{
-                console.log('### Card config::onError:: e=', e);
-            },
             onBinLookup: (obj)=>{
                 console.log('### Card config::onBinLookup:: obj=', obj);
             },
