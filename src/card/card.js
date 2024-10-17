@@ -120,12 +120,6 @@ Promise.all([ getClientKey(), getPaymentMethods()]).then(async response => {
         //     }
         // }
         /**
-         * Needed to make adyen.js vn <= 3.10.0 work
-         * For anything < 3.9.0 it has to be a genuine originKey (published for TestCompany against localhost:4000)
-         */
-        // originKey: 'pub.v2.8115658705713940.aHR0cDovL2xvY2FsaG9zdDozMDAw.cpyWd9ZhlTyrKVQRp34kMJZjIFMcPvP3B5UhgAdhDjc',
-        // originKey: 'pub.v2.8115658705713940.aHR0cDovL2xvY2FsaG9zdDo0MDAw.SQOrkUNaVKPn2XtL7OPDEqhY8u7qWQGJo76CrK33cAg',// localhost:4000
-        /**
          * Needed to make adyen.js vn <= 2.4.0 work
          */
         // loadingContext: 'https://checkoutshopper-test.adyen.com/checkoutshopper/'
