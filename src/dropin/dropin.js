@@ -4,7 +4,8 @@
 const head = document.head.innerHTML;
 const version = head.substring(head.indexOf('sdk/') + 4, head.indexOf('/adyen'));
 const majorVn = Number(version.substring(0, version.indexOf('.')));
-const IS_VERSION_5 = majorVn >= 5;
+const IS_VERSION_4_OR_LESS = majorVn < 5;
+const IS_VERSION_5 = majorVn === 5;
 
 const DEFAULT_COUNTRY = 'US';
 
@@ -63,22 +64,43 @@ getClientKey().then(clientKey => {
         };
 
         // 1. Create an instance of AdyenCheckout
-        if (!IS_VERSION_5) {
+        if (IS_VERSION_4_OR_LESS) {
             window.checkout = new AdyenCheckout(configObj);
-        } else {
+        }  if (IS_VERSION_5) {
             window.checkout = await AdyenCheckout(configObj);
+        }else {
+            window.checkout = await window.AdyenWeb.AdyenCheckout(configObj);
         }
 
         // 2. Create and mount the Component
-        window.dropin = checkout
-            .create('dropin', {
-                // Events
-                onSelect: activeComponent => {
-                    if (activeComponent.state && activeComponent.state.data) updateStateContainer(activeComponent.data); // Demo purposes only
-                },
-                showStoredPaymentMethods: false
-            })
-            .mount('#dropin-container');
+        if (IS_VERSION_5 || IS_VERSION_4_OR_LESS) {
+            window.dropin = checkout
+                .create('dropin', {
+                    // Events
+                    onSelect: activeComponent => {
+                        if (activeComponent.state && activeComponent.state.data) updateStateContainer(activeComponent.data); // Demo purposes only
+                    },
+                    showStoredPaymentMethods: false
+                })
+                .mount('#dropin-container');
+        }else{
+            window.dropin = new window.AdyenWeb.Dropin(checkout, {
+                // instantPaymentTypes: ['googlepay'],
+                // paymentMethodsConfiguration: {
+                //     card: {
+                //         enableStoreDetails: true,
+                //         hasHolderName: true,
+                //         holderNameRequired: true
+                //     },
+                //     paywithgoogle: {
+                //         buttonType: 'plain'
+                //     },
+                //     klarna: {
+                //         useKlarnaWidget: true
+                //     }
+                // }
+            }).mount('#dropin-container');
+        }
 
         // const mountBut = document.getElementById('dropinMount');
         // mountBut.addEventListener('click', e => {
