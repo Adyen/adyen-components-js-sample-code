@@ -98,8 +98,8 @@ const handleAdditionalDetails = (details, component) => {
         .catch(console.error);
 };
 
-// Posts a new payment into the local server
-const sessions = (paymentMethod, config = {}) => {
+// Posts a new session into the local server
+const sessions = (config = {}, paymentMethod = {}) => {
     const paymentsConfig = {...paymentsDefaultConfig, ...config};
     const sessionRequest = {...paymentsConfig, ...paymentMethod};
 
